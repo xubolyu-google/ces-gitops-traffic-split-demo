@@ -1,0 +1,12 @@
+{
+  "displayName": "SMS",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/SMS/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "Send SMS to customer mobile number."
+}

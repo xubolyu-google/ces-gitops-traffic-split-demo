@@ -1,0 +1,75 @@
+{
+  "displayName": "Troubleshooting_HardwareIssue_SchedulesInStoreAppointment",
+  "tags": ["troubleshooting"],
+  "scenario": {
+    "task": "The user\u0027s laptop screen is cracked and wants to schedule an appointment tomorrow to have it looked at.",
+    "userFacts": [{
+      "name": "Device State",
+      "value": "Laptop screen is cracked."
+    }, {
+      "name": "Device type",
+      "value": "ASUS windows"
+    }, {
+      "name": "Zip Code",
+      "value": "55423"
+    }],
+    "maxTurns": 20,
+    "variableOverrides": {
+      "current_date": "2026-01-02",
+      "mock_ani_lookup_response": {
+        "sessionInfo": {
+          "parameters": {
+            "membership": "Total",
+            "partyID": ["5001112222"],
+            "with_ani_lookup": true
+          }
+        }
+      },
+      "mock_create_appointment_response": {
+        "sessionInfo": {
+          "parameters": {
+            "response": {
+              "confirmationNumber": "VXX32J3VK"
+            }
+          }
+        }
+      },
+      "mock_get_appointment_slots_response": {
+        "sessionInfo": {
+          "parameters": {
+            "response": {
+              "slotTime": ["2026-01-03T16:20:00.000Z", "2026-01-03T16:40:00.000Z", "2026-01-03T17:40:00.000Z", "2026-01-03T18:40:00.000Z"],
+              "storeId": "281",
+              "storeName": "Richfield"
+            }
+          }
+        }
+      },
+      "mock_get_call_context_response": {
+        "sessionInfo": {
+          "parameters": {
+            "callContext": {
+              "data": {
+                "entryPointNumber": "1112223333",
+                "phoneNumber": "1112223333"
+              }
+            }
+          }
+        }
+      },
+      "mock_store_lookup_response": {
+        "sessionInfo": {
+          "parameters": {
+            "display_name": "Richfield",
+            "hotline": "retail",
+            "store_id": "281",
+            "store_id4": "0281"
+          }
+        }
+      }
+    },
+    "taskCompletionBehavior": "TASK_SATISFIED",
+    "userGoalBehavior": "USER_GOAL_SATISFIED",
+    "evaluationExpectations": ["Schedules an in store visit."]
+  }
+}

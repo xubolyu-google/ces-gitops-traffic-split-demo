@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "play_sms_mail_in_repair",
+    "pythonCode": "tools/play_sms_mail_in_repair/python_function/python_code.py",
+    "description": "Play the fallback one-time text offer for an mail in repair that a user needs to explicitly consent to."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "play_sms_mail_in_repair"
+}

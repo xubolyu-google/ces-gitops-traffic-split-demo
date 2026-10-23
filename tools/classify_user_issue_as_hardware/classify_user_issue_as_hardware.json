@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "classify_user_issue_as_hardware",
+    "pythonCode": "tools/classify_user_issue_as_hardware/python_function/python_code.py",
+    "description": "Classifies the user\u0027s issue as a hardware issue for internal reporting\npurposes, along with the status of the user\u0027s hardware. This is internal\nmetadata. Execution of this tool should be treated as a silent background\naction; do not announce to the user that you are classifying their issue or\nwhat the classification is.\n\nArgs:\n  hardware_status (str): The status of the user\u0027s hardware, using best effort\n  inference based on details presented in the conversation, defaulting to\n  \"Unknown\" if ambiguous. Valid values:\n    - \"Broken/Nonfunctional\"\n    - \"Like New\"\n    - \"Normal\"\n    - \"Lost/Stolen\"\n    - \"Damaged\"\n    - \"Unknown\"\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "classify_user_issue_as_hardware"
+}

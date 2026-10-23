@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_product_info",
+    "pythonCode": "tools/set_product_info/python_function/python_code.py",
+    "description": "Records metadata about the user\u0027s device.\n\nExecution of this tool should be treated as a silent background\naction; do not announce to the user that you are recording their product info.\n\nArgs:\n    product_type (str, optional): The high level type of product. Must be one of the following exact strings:\n      - \"macbook\": Use for Apple laptops.\n      - \"chromebook\": Use for laptops running ChromeOS.\n      - \"computer\": Use for all other laptops (Windows/Linux) or desktops.\n      - \"iPad\": Use for Apple tablets.\n      - \"tablet\": Use for all non-Apple tablets (e.g., Samsung Galaxy Tab, Surface).\n      - \"printer\": Inkjet, laser, or multifunction printers.\n      - \"scanner\": Dedicated document scanners.\n      - \"fax\": Dedicated fax machines.\n      - \"hard drive\": External or internal storage devices (HDD/SSD).\n    brand (str, optional): The brand of the product.\n    operating_system (str, optional): The operating system of the device. When the version is known, include it (e.g., \"Windows 11\", \"Windows 10\", \"macOS Ventura\"). Do not store just \"Windows\" if the specific version is known.\n    item_id (str, optional): The item_id of the product confirmed from the purchase history result, can only be set if user confirmed the product from the purchase history.\n\nSets Context Variables:\n    - product_type (str): The type of product.\n    - brand (str): The brand of the product.\n    - operating_system (str): The operating system of the device.\n    - protection_plan_status (bool): Whether the product is covered by a\n      protection plan."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_product_info"
+}

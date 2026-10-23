@@ -1,0 +1,7 @@
+{
+  "displayName": "no_membership",
+  "llmCriteria": {
+    "prompt": "The agent should not say that the user has any type of My Best Buy membership."
+  },
+  "tags": ["steering"]
+}

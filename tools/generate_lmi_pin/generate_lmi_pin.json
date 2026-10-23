@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "generate_lmi_pin",
+    "pythonCode": "tools/generate_lmi_pin/python_function/python_code.py",
+    "description": "Generates a unique 6-digit PIN for LogMeIn(LMI) remote support sessions.\n\nReturns:\n  dict[str, Any]: A dictionary containing LMI PIN or an error message.\n\n  Success Schema:\n      - pin (str): The LMI PIN.\n\n  Failure Schema:\n    - agent_action (str): Explicit instructions that you, the AI agent, MUST\n      follow immediately and exactly as written to recover from the failure."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "generate_lmi_pin"
+}

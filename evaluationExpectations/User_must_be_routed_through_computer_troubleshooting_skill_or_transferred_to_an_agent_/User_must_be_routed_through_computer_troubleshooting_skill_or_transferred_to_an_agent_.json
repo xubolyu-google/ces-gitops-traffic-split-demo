@@ -1,0 +1,7 @@
+{
+  "displayName": "User must be routed through computer troubleshooting skill or transferred to an agent ",
+  "llmCriteria": {
+    "prompt": "Example 1: User requests to transfer to an agent immediately, if we have enough information did the agent attempt troubleshooting options?\nExample 2: If the case is transferred, was it transferred after using the computer troubleshooting skill? \nExample 3: We should not have transferred the chat to DFCX for any reason"
+  },
+  "tags": ["computer_troubleshooting_agent"]
+}

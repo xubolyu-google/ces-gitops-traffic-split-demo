@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_order_intent",
+    "pythonCode": "tools/set_order_intent/python_function/python_code.py",
+    "description": "Updates the static variable order_management_subtasks_instruction based on user intent.\n\nYou MUST call this tool immediately upon transfer to the Order Management Agent to populate the correct instruction flow.\n\nPossible values for intent and their explanations:\n  - \"check_status\": Use when the customer wants to check the status or tracking of an existing order.\n  - \"cancel\": Use when the customer wants to cancel an order, an appointment, or specific items within an order.\n  - \"modify\": Use when the customer wants to modify order details, such as changing shipping speed, updating shipping address, switching to store pickup, extending pickup hold time, adding a pickup person, or rescheduling an appointment.\n  - \"late_lost\": Use when the customer reports that an order is late, delayed, missing, or marked as delivered but not received.\n  - \"return_exchange\": Use when the customer asks about returning or exchanging items, or inquires about general return policies and windows.\n  - \"price_match\": Use when the customer asks about price matching a product against a competitor or Best Buy\u0027s price match guarantee.\n  - \"pickup_policy\": Use when the customer asks specifically about the store pickup hold policy or what happens if they cannot pick up their order in time.\n\nArgs:\n    intent (str): The identified user intent.\n\nReturns:\n    dict[str, Any]: Success status."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_order_intent"
+}

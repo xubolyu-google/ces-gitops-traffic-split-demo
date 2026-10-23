@@ -1,0 +1,228 @@
+openapi: 3.0.0
+info:
+  title: DCPI - Get Order By Phone
+  version: 2.0.0
+  description: This API retrieves order information for all orders associated
+    with a given phone number.
+
+servers:
+- url: $env_var
+  description: Webhook Server
+
+paths:
+  /orders:
+    post:
+      summary: Retrieve orders by phone number
+      operationId: getOrderByPhone
+      parameters:
+      - name: membership
+        in: query
+        required: false
+        schema:
+          type: string
+        description: The customer's membership status, such as "Total".
+      - name: isANIRequest
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+        description: Differentiates which component called the API.
+      - $ref: '#/components/parameters/x-request-id'
+      - $ref: '#/components/parameters/x-session-id'
+      - $ref: '#/components/parameters/stsScope'
+      - $ref: '#/components/parameters/reqPayloadTag'
+      - $ref: '#/components/parameters/respPayloadTag'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      type: object
+                      properties:
+                        orderRequest:
+                          $ref: '#/components/schemas/GetOrdersRequest'
+      responses:
+        '200':
+          description: Successfully fetched orders.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          orderDetails:
+                            $ref: '#/components/schemas/GetOrdersResponse'
+        '400':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '404':
+          description: The specified phone number does not have associated
+            orders.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+components:
+  parameters:
+    x-request-id:
+      in: header
+      name: x-request-id
+      required: true
+      schema:
+        type: string
+        description: Unique request id.
+
+    x-session-id:
+      in: header
+      name: x-session-id
+      required: true
+      schema:
+        type: string
+        description: conversation id.
+
+    stsScope:
+      name: x-sts-scope
+      in: header
+      required: true
+      description: "APID scope"
+      schema:
+        type: string
+        enum: ["apid-int-cloud:GET,POST:/gw/dcpi-orders/api/v*/orders/**"]
+        default: "apid-int-cloud:GET,POST:/gw/dcpi-orders/api/v*/orders/**"
+
+    reqPayloadTag:
+      name: X-Req-Payload-Tag
+      in: header
+      required: true
+      description: "A tag for the request payload that needs to be extracted from
+        session parameters and send it to downstream api."
+      schema:
+        type: string
+        enum: ["orderRequest"]
+        default: "orderRequest"
+
+    respPayloadTag:
+      name: X-Resp-Payload-Tag
+      in: header
+      required: true
+      description: "A tag for the response payload that will be wrapped up in session
+        parameters."
+      schema:
+        type: string
+        enum: ["orderDetails"]
+        default: "orderDetails"
+
+  schemas:
+    ErrorDto:
+      type: object
+      properties:
+        status:
+          type: string
+          description: HTTP status code with description.
+          example: 500 Internal Server Error
+        error:
+          type: string
+          description: Detailed error message.
+          example: Error details here
+
+    GetOrdersRequest:
+      type: object
+      required:
+      - orderPhoneNumber
+      properties:
+        orderPhoneNumber:
+          type: string
+          example: 3805551234
+          description: Phone number to search for associated orders.
+        includeReturnEligibility:
+          type: boolean
+          default: false
+          description: Including return eligibility for each order item.
+
+    GetOrdersResponse:
+      type: object
+      properties:
+        orderCount:
+          type: integer
+          description: Number of orders returned.
+        gstorePickupCount:
+          type: integer
+          description: Number of items flagged for store pickup.
+        isEligibleForReturn:
+          type: boolean
+          description: True if any items in any of the orders are returnable.
+        orderDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderDetail'
+
+    OrderDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the Order.
+        created:
+          type: string
+          format: date-time
+          description: Order creation date & time in Central Time Zone.
+        createdCalendarDate:
+          type: string
+          description: Order creation date formatted for voice.
+        status:
+          type: string
+          description: Overall order status.
+        isComplete:
+          type: string
+          description: Whether or not the Order is complete.
+        isEligibleForReturn:
+          type: boolean
+          description: True if all items in the order are returnable.
+        orderItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+
+    OrderItem:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the OrderItem.
+        itemDescription:
+          type: string
+          description: Description of the item.
+        sku:
+          type: string
+          description: The SKU of the OrderItem.
+        lineType:
+          type: string
+          enum:
+          - InStore
+          - ShipToHome
+          - Delivery
+          - MobilePlan
+          - Service
+          - Subscriptiondiff --git a/google3/cloud/ai/fde/customers/bestbuy/computer_troubleshooting/app/toolsets/order/order.json b/google3/cloud/ai/fde/customers/bestbuy/computer_troubleshooting/app/toolsets/order/order.json

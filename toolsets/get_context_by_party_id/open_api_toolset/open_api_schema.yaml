@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Service Context API
+  description: API to get existing context by partyID.
+  version: 1.0.0
+servers:
+  - url: $env_var
+    description: Web-hook base URL for the API
+
+paths:
+  /api/v1/gw-post/dcpi-orders/api/serviceContext/partyId:
+    post:
+      operationId: getContextByPartyID
+      summary: Get existing context by Party ID
+      description: >
+        Takes the party ID as in input and returns the latest service context created by the user.
+      parameters:
+        - $ref: '#/components/parameters/reqPayloadTag'
+        - $ref: '#/components/parameters/respPayloadTag'
+        - $ref: '#/components/parameters/sessionId'
+        - $ref: '#/components/parameters/stsScope'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      type: object
+                      properties:
+                        request:
+                          $ref: '#/components/schemas/ContextProactiveRequest'
+      responses:
+        "200":
+          description: Successfully retrieved context by Party ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          response:
+                            $ref: '#/components/schemas/ContextProactiveResponse'
+        "400":
+          description: Bad request - missing or invalid parameters.
+        "500":
+          description: Internal server error.
+
+components:
+  parameters:
+    reqPayloadTag:
+      name: X-Req-Payload-Tag
+      in: header
+      required: true
+      description: Tag for the request payload.
+      schema:
+        type: string
+        enum: ["request"]
+        default: "request"
+    respPayloadTag:
+      name: X-Resp-Payload-Tag
+      in: header
+      required: true
+      description: Tag for the response payload.
+      schema:
+        type: string
+        enum: ["response"]
+        default: "response"
+    sessionId:
+      name: x-session-id
+      in: header
+      required: true
+      description: CallSid or ChatId to track the session.
+      schema:
+        type: string
+    stsScope:
+      name: x-sts-scope
+      in: header
+      required: true
+      description: APID scope for scheduling services.
+      schema:
+        type: string
+        enum: ["apid-int-cloud:GET,POST,PUT:/gw/dcpi-orders/api/serviceContext/**"]
+        default: "apid-int-cloud:GET,POST,PUT:/gw/dcpi-orders/api/serviceContext/**"
+      
+
+  schemas:
+    ContextProactiveRequest:
+      type: object
+      properties:
+        partyId:
+          type: string
+          example: "5000000"
+        channel:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "IVR"
+          required:
+            - name
+      required:
+        - partyId
+        - channel
+
+    ContextProactiveResponse:
+      type: object
+      required:
+        - paths
+        - isProactive
+      properties:
+        paths:
+          type: array
+          items:
+            $ref: '#/components/schemas/Path'
+        isProactive:
+          type: boolean
+          example: true
+
+    Path:
+      type: object
+      required:
+        - link
+        - ranking
+        - type
+        - status
+        - deviceCategory
+        - brand
+        - number
+      properties:
+        link:
+          type: string
+          format: uri
+          example: "https://www.test.bestbuy.com/gateway/adaptive-support-router/route?serviceContextNumber=AS-8441fe24-0173-4df4-b56d-02e2bb648ddc&pathNumber=c59d213b-511e-4eba-aa61-72f988c9d9d5"
+        ranking:
+          type: integer
+          example: 1
+        type:
+          type: string
+          enum:
+            - Dotcom_SelfService_ServiceTriage
+            - Dotcom_SelfService_RepairDeflect
+            - Agent
+          example: "Dotcom_SelfService_ServiceTriage"
+        status:
+          $ref: '#/components/schemas/Status'
+        deviceCategory:
+          type: string
+          example: "Cell Phones"
+        brand:
+          type: string
+          example: "Google"
+        number:
+          type: string
+          format: uuid
+          example: "c59d213b-511e-4eba-aa61-72f988c9d9d5"
+
+    Status:
+      type: object
+      required:
+        - state
+        - updated
+      properties:
+        state:
+          type: string
+          example: "AVAILABLE"
+        updated:
+          type: string
+          format: date-time
+          example: "2026-01-09T03:51:17"

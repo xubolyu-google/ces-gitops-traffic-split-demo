@@ -1,0 +1,195 @@
+openapi: 3.0.0
+info:
+  title: Send SMS to Customer API
+  version: v2
+  description: This API allows sending an SMS to a customer's mobile number
+    based on the IVR flow the customer is in.
+servers:
+# Base path for APID/Webhook URLs, as seen in the documentation
+- url: $env_var
+  description: Web-hook base URL for the API
+paths:
+  /sms:
+    post:
+      summary: Send SMS to Customer
+      operationId: sendSmsToCustomer
+      tags:
+      - SMS
+      parameters:
+      - $ref: '#/components/parameters/reqPayloadTag'
+      - $ref: '#/components/parameters/respPayloadTag'
+      - $ref: '#/components/parameters/sessionId'
+      - $ref: '#/components/parameters/stsScope'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: "Mimics the standard DFCX webhook request structure."
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      properties:
+                        sendSMSReq:
+                          $ref: '#/components/schemas/SmsRequest'
+      responses:
+        '200':
+          description: OK - Successfully sent SMS
+          content:
+            application/json:
+              schema:
+                type: object
+                description: "Mimics the standard DFCX webhook request structure."
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        properties:
+                          sendSMSResp:
+                            type: object
+                            properties:
+                              message:
+                                type: string
+                                example: sent
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '503':
+          description: Service Unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+components:
+  parameters:
+    reqPayloadTag:
+      name: X-Req-Payload-Tag
+      in: header
+      required: true
+      description: "A tag for the request payload that needs to be extracted from
+        session parameters and send it to downstream api."
+      schema:
+        type: string
+        enum: ["sendSMSReq"]
+        default: "sendSMSReq"
+
+    respPayloadTag:
+      name: X-Resp-Payload-Tag
+      in: header
+      required: true
+      description: "A tag for the response payload that will be wrapped up in session
+        parameters."
+      schema:
+        type: string
+        enum: ["sendSMSResp"]
+        default: "sendSMSResp"
+
+    sessionId:
+      name: x-session-id
+      in: header
+      required: true
+      description: "Session id of the conversation"
+      schema:
+        type: string
+        default: "callSid_1"
+
+    stsScope:
+      name: x-sts-scope
+      in: header
+      required: true
+      description: "APID scope"
+      schema:
+        type: string
+        enum: ["apid-int-cloud:GET,POST,PUT:/gw/dcpi-nexus/**"]
+        default: "apid-int-cloud:GET,POST,PUT:/gw/dcpi-nexus/**"
+
+  schemas:
+    Customer:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: Phone number of the customer. Must be in formats like
+            XXXXXXXXXX, 1XXXXXXXXXX, +1XXXXXXXXXX, or with hyphens.
+          example: '2345678909'
+        partyId:
+          type: string
+          description: PartyId of the customer.
+          example: '123456789'
+      required:
+      - phoneNumber
+    Fields:
+      type: object
+      description: |
+        These data fields are part of the fields object based on the type of SMS being sent.
+        The structure is open/free-form. Keys like 'key1' and 'key2' are sample values.
+      additionalProperties:
+        type: string
+      example:
+        workOrderID: '12345'
+        orderID: 'BBY01-12345'
+    SmsRequest:
+      type: object
+      properties:
+        eventId:
+          type: string
+          description: Event identifier for the IVR flow.
+          enum:
+          - IVR_OS_Support
+          - IVR_IS_Schedule
+          - IVR_AA_Schedule
+          - IVR_CA_FAQPages
+          - IVR_CA_BBCreditCardAccount
+          - IVR_OS_OrderStatus
+          - IVR_HA_Delivery_Tracker
+          example: IVR_OS_Support
+        customer:
+          $ref: '#/components/schemas/Customer'
+        fields:
+          $ref: '#/components/schemas/Fields'
+        provider:
+          type: string
+          description: Provider of the request.
+          example: dfcx
+        intent:
+          type: string
+          description: Intent of the request.
+          example: DefaultWelcomeIntent
+        sessionId:
+          type: string
+          description: Session identifier.
+          example: CAble6f974a0a61609e0564924a3208f33_1
+      required:
+      - eventId
+      - customer
+      - sessionId
+    ErrorDto:
+      type: object
+      properties:
+        status:
+          type: string
+          description: HTTP status code with description.
+          example: 500 Internal Server Error
+        error:
+          type: string
+          description: Detailed error message.
+          example: Error details here

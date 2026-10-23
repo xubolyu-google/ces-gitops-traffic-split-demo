@@ -1,0 +1,248 @@
+{
+  "displayName": "steering_smart_speaker_troubleshooting",
+  "tags": ["steering", "steering-boundary", "steering_boundary_intents"],
+  "golden": {
+    "turns": [{
+      "steps": [{
+        "userInput": {
+          "variables": {
+            "mock_ani_denylist_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "isANIDenyListed": "false"
+                }
+              }
+            },
+            "mock_ani_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "appointmentDate": "None",
+                  "email": "ALICE.SMITH@EXAMPLE.COM",
+                  "firstName": "ALICE",
+                  "isProactive": {
+                    "isExpiredCard": false,
+                    "isFailedAuthMembership": false,
+                    "isInstoreAppt": false,
+                    "isOpenRepairs": false,
+                    "isOrderInstallDelivery": false,
+                    "isOrderOpen15D": false,
+                    "isOrderReadyForPickUp": false,
+                    "isOrdersOpen": false,
+                    "isRepairAppointment": false,
+                    "isTTSContract": false
+                  },
+                  "lastName": "SMITH",
+                  "membership": "Total",
+                  "open_orders_count_15d": 1.0,
+                  "orders": {
+                  },
+                  "partyID": ["5001112222"],
+                  "with_ani_lookup": true,
+                  "zipCode": "10001"
+                }
+              }
+            },
+            "mock_get_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "data": {
+                      "entryPointNumber": "4087388680",
+                      "phoneNumber": "1112223333",
+                      "source": "IVR",
+                      "sourceType": "SIP"
+                    }
+                  }
+                }
+              }
+            },
+            "mock_purchase_history_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "response": {
+                    "purchases": {
+                      "Acer": [{
+                        "isCoveredByProtectionPlan": true,
+                        "productName": "Acer - R 11 2-in-1 Chromebook",
+                        "whatItIs": ["Laptop", "Chromebook"]
+                      }],
+                      "Apple": [{
+                        "isCoveredByProtectionPlan": false,
+                        "productName": "MacBook Air 13.3",
+                        "whatItIs": ["Laptop", "MacBook"]
+                      }, {
+                        "isCoveredByProtectionPlan": false,
+                        "productName": "MacBook Pro 14",
+                        "whatItIs": ["Laptop", "MacBook"]
+                      }],
+                      "Samsung": [{
+                        "isCoveredByProtectionPlan": true,
+                        "productName": "Samsung Galaxy S24",
+                        "whatItIs": ["Phone", "Cell Phone"]
+                      }]
+                    }
+                  }
+                }
+              }
+            },
+            "mock_set_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "contextKey": "session_id"
+                  }
+                }
+              }
+            },
+            "mock_store_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "display_name": "N/A",
+                  "hotline": "888",
+                  "store_id": "N/A",
+                  "store_id4": "N/A"
+                }
+              }
+            }
+          }
+        }
+      }, {
+        "userInput": {
+          "event": {
+            "event": "welcome"
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "0eb0ce78-1f19-4a1f-a863-57fdf81bb2a6",
+            "tool": "get_call_context",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "0eb0ce78-1f19-4a1f-a863-57fdf81bb2a6",
+            "tool": "get_call_context",
+            "response": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "7cf1ea86-e026-4c76-944c-f95c46869fc2",
+            "tool": "fetch_init_json",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "7cf1ea86-e026-4c76-944c-f95c46869fc2",
+            "tool": "fetch_init_json",
+            "response": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "a9322caa-4b58-43f5-a1e6-ccb41540766b",
+            "tool": "store_lookup",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "a9322caa-4b58-43f5-a1e6-ccb41540766b",
+            "tool": "store_lookup",
+            "response": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "Welcome to Best Buy. You\u0027re interacting with a virtual assistant that\u0027ll use AI to help you. I\u0027m still learning, so I may not get everything right. For quality assurance, your call may be recorded. By continuing, you accept the terms of use and privacy policy on BestBuy.com."
+            }]
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "8440d52b-13b3-444e-a2af-009f39e9dd2f",
+            "tool": "ani_lookup",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "8440d52b-13b3-444e-a2af-009f39e9dd2f",
+            "tool": "ani_lookup",
+            "response": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "And thanks for being a My Best Buy Total member. Para español, diga \u0027español\u0027."
+            }]
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "Now, what can I help you with?"
+            }]
+          }
+        }
+      }]
+    }, {
+      "steps": [{
+        "userInput": {
+          "text": "My smart speaker won\u0027t play music or make sound anymore."
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "93816ace-df1e-4d91-a27d-92d1b4ec8e26",
+            "tool": "connect_to_dfcx_agent",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "93816ace-df1e-4d91-a27d-92d1b4ec8e26",
+            "tool": "connect_to_dfcx_agent",
+            "response": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "agentTransfer": {
+            "targetAgent": "DFCX Agent Transfer"
+          }
+        }
+      }]
+    }],
+    "evaluationExpectations": ["steering_no_fulfillment", "steering_pii", "steering_dfcx_user_query"]
+  }
+}

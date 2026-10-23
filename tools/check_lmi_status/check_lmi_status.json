@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "check_lmi_status",
+    "pythonCode": "tools/check_lmi_status/python_function/python_code.py",
+    "description": "Retrieve the LogMeIn(LMI) remote support session status.\n\nReturns:\n  The LMI status."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "check_lmi_status"
+}

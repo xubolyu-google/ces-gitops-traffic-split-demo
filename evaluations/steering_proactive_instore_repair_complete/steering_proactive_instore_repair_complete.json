@@ -1,0 +1,233 @@
+{
+  "displayName": "steering_proactive_instore_repair_complete",
+  "tags": ["steering_proactive", "steering"],
+  "golden": {
+    "turns": [{
+      "steps": [{
+        "userInput": {
+          "variables": {
+            "mock_ani_denylist_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "isANIDenyListed": "false"
+                }
+              }
+            },
+            "mock_ani_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "appointmentDate": "None",
+                  "email": "ALICE.SMITH@EXAMPLE.COM",
+                  "firstName": "ALICE",
+                  "isProactive": {
+                    "isExpiredCard": false,
+                    "isFailedAuthMembership": false,
+                    "isInstoreAppt": false,
+                    "isOpenRepairComplete": true,
+                    "isOpenRepairInProgress": false,
+                    "isOrderInstallDelivery": false,
+                    "isOrderOpen15D": false,
+                    "isOrderReadyForPickUp": false,
+                    "isOrdersOpen": false,
+                    "isRepairAppointment": false,
+                    "isTTSContract": false
+                  },
+                  "lastName": "SMITH",
+                  "membership": "Total",
+                  "orders": {
+                  },
+                  "partyID": ["5001112222"],
+                  "with_ani_lookup": true,
+                  "zipCode": "10001"
+                }
+              }
+            },
+            "mock_get_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "data": {
+                      "entryPointNumber": "4087388680",
+                      "phoneNumber": "1112223333",
+                      "source": "IVR",
+                      "sourceType": "SIP"
+                    }
+                  }
+                }
+              }
+            },
+            "mock_purchase_history_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "response": {
+                    "purchases": {
+                    }
+                  }
+                }
+              }
+            },
+            "mock_set_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "contextKey": "session_id"
+                  }
+                }
+              }
+            },
+            "mock_store_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "display_name": "N/A",
+                  "hotline": "888",
+                  "store_id": "N/A",
+                  "store_id4": "N/A"
+                }
+              }
+            }
+          }
+        }
+      }, {
+        "userInput": {
+          "event": {
+            "event": "welcome"
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "DISABLED_BARGE_IN"
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "DISCLAIMER"
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-c1a1a1a1-aaaa-4aaa-aaaa-aaaaaaaaaaa1",
+            "tool": "get_call_context",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-c1a1a1a1-aaaa-4aaa-aaaa-aaaaaaaaaaa1",
+            "tool": "get_call_context",
+            "response": {
+              "result": {
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-c1a1a1a1-aaaa-4aaa-aaaa-aaaaaaaaaaa2",
+            "tool": "fetch_init_json",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-c1a1a1a1-aaaa-4aaa-aaaa-aaaaaaaaaaa2",
+            "tool": "fetch_init_json",
+            "response": {
+              "result": ""
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-c1a1a1a1-aaaa-4aaa-aaaa-aaaaaaaaaaa3",
+            "tool": "store_lookup",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-c1a1a1a1-aaaa-4aaa-aaaa-aaaaaaaaaaa3",
+            "tool": "store_lookup",
+            "response": {
+              "result": {
+                "display_name": null,
+                "store_id": null
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "PROACTIVE"
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "Welcome to Best Buy. You\u0027re interacting with a virtual assistant that\u0027ll use AI to help you. I\u0027m still learning, so I may not get everything right. For quality assurance, your call may be recorded. By continuing, you accept the terms of use and privacy policy on BestBuy.com."
+            }]
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-c1a1a1a1-aaaa-4aaa-aaaa-aaaaaaaaaaa4",
+            "tool": "ani_lookup",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-c1a1a1a1-aaaa-4aaa-aaaa-aaaaaaaaaaa4",
+            "tool": "ani_lookup",
+            "response": {
+              "result": {
+                "email": "ALICE.SMITH@EXAMPLE.COM",
+                "firstName": "ALICE",
+                "lastName": "SMITH",
+                "zipCode": "10001"
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "proactive_code": "REPAIR_COMPLETE"
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "DONE"
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "It looks like your repair is complete, and pickup needs to be scheduled online. Can I send you a text with a link to that page?"
+            }]
+          }
+        }
+      }]
+    }],
+    "evaluationExpectations": ["total_member"]
+  }
+}

@@ -1,0 +1,308 @@
+openapi: 3.0.0
+info:
+  title: Instore Appointments API
+  version: v1
+  description: API to retrieve available appointment slots and schedule
+    appointments for in-store services.
+servers:
+- url: $env_var
+  description: Web-hook base URL for the API
+
+paths:
+  /api/v1/gw-post/dcpi-scheduling/api/v1/instore/appointments/slots:
+    post:
+      summary: Get Available Slots between dates
+      operationId: getAvailableSlotsBetweenDates
+      description: Allows users to retrieve the first 10 available slots between
+        given dates by StoreId or ZipCode.
+      parameters:
+      - $ref: '#/components/parameters/reqPayloadTag'
+      - $ref: '#/components/parameters/respPayloadTag'
+      - $ref: '#/components/parameters/sessionId'
+      - $ref: '#/components/parameters/stsScope'
+      requestBody:
+        description: Request body to fetch slots. A StoreId or ZipCode must be
+          provided.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      type: object
+                      properties:
+                        request:
+                          $ref: '#/components/schemas/AvailableSlotsRequest'
+      responses:
+        '200':
+          description: Successfully retrieved the available slots.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          response:
+                            $ref: '#/components/schemas/AvailableSlotsResponse'
+        '400':
+          description: Bad Request. Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+  /api/v1/gw-post/dcpi-scheduling/api/v1/instore/appointments:
+    post:
+      summary: Create Appointment
+      operationId: createAppointment
+      description: Allows users to schedule an instore appointment by providing
+        store, department, and customer details.
+      parameters:
+      - $ref: '#/components/parameters/requestId'
+      - $ref: '#/components/parameters/stsScope'
+      - $ref: '#/components/parameters/reqPayloadTag'
+      - $ref: '#/components/parameters/respPayloadTag'
+      - $ref: '#/components/parameters/sessionId'
+      requestBody:
+        description: Details required to create an instore appointment.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      type: object
+                      properties:
+                        request:
+                          $ref: '#/components/schemas/CreateAppointmentRequest'
+      responses:
+        '200':
+          description: Successfully created appointment.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          response:
+                            $ref: '#/components/schemas/CreateAppointmentResponse'
+        '400':
+          description: Invalid request parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '500':
+          description: Unexpected error occurred while processing the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '503':
+          description: The service is temporarily unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+components:
+  parameters:
+    requestId:
+      name: X-REQUEST-ID
+      in: header
+      required: true
+      description: Identifier to track individual requests to this API.
+      schema:
+        type: string
+        example: "xrequest::1683824829::92.123.182.30::c1442bc::468862"
+    reqPayloadTag:
+      name: X-Req-Payload-Tag
+      in: header
+      required: true
+      description: Tag for the request payload.
+      schema:
+        type: string
+        enum: ["request"]
+        default: "request"
+    respPayloadTag:
+      name: X-Resp-Payload-Tag
+      in: header
+      required: true
+      description: Tag for the response payload.
+      schema:
+        type: string
+        enum: ["response"]
+        default: "response"
+    sessionId:
+      name: x-session-id
+      in: header
+      required: true
+      description: CallSid or ChatId to track the session.
+      schema:
+        type: string
+    stsScope:
+      name: x-sts-scope
+      in: header
+      required: true
+      description: APID scope for scheduling services.
+      schema:
+        type: string
+        enum: ["apid-int-cloud:GET,POST:/gw/dcpi-scheduling/api/**"]
+        default: "apid-int-cloud:GET,POST:/gw/dcpi-scheduling/api/**"
+
+  schemas:
+    AvailableSlotsRequest:
+      type: object
+      required:
+      - startDate
+      - endDate
+      - activityType
+      - departmentId
+      properties:
+        StoreId:
+          type: integer
+          description: Required if ZipCode is absent.
+          example: 685
+        ZipCode:
+          type: string
+          description: Required if StoreId is absent.
+          example: "94040"
+        startDate:
+          type: string
+          format: date
+          description: Start date in yyyy-mm-dd format.
+          example: "2025-12-18"
+        endDate:
+          type: string
+          format: date
+          description: End date in yyyy-mm-dd format.
+          example: "2025-12-30"
+        ActivityType:
+          type: string
+          description: Type of reservation (e.g., pr-dropoff, pr-pickup).
+          example: "pr-dropoff"
+        DepartmentId:
+          type: string
+          description: Department identifier (e.g., PR, MOBI).
+          example: "pr"
+
+    AvailableSlotsResponse:
+      type: object
+      properties:
+        storeId:
+          type: string
+          example: "281"
+        storeName:
+          type: string
+          example: "Richfield"
+        slots:
+          type: array
+          items:
+            type: string
+          description: A list of available appointment slots.
+          example:
+          - "2025-12-18T15:20:00.000Z"
+          - "2025-12-19T08:20:00.000Z"
+
+    CreateAppointmentRequest:
+      type: object
+      required:
+      - storeId
+      - createdBy
+      - activityType
+      - departmentId
+      - firstName
+      - clientExternalId
+      properties:
+        storeId:
+          type: integer
+          description: storeId to create the appointment.
+          example: 281
+        departmentId:
+          type: string
+          description: Department identifier (e.g., PR, MOBI).
+          example: "pr"
+        activityType:
+          type: string
+          description: Type of reservation (e.g., pr-dropoff, pr-pickup,
+            pr-appledrop).
+          example: "pr-appledrop"
+        createdBy:
+          type: string
+          description: Source of the request, such as IVR or Chatbot.
+          example: "IVR"
+        firstName:
+          type: string
+          description: First name of the user.
+        lastName:
+          type: string
+          description: Last name of the user.
+        phoneNumber:
+          type: string
+          description: PhoneNumber of the user for SMS confirmation.
+        smsPhoneNumber:
+          type: string
+          description: Dedicated SMS phone number for communications.
+        email:
+          type: string
+          format: email
+          description: Email of the user for email confirmation.
+        notes:
+          type: string
+          description: Additional notes for the appointment.
+        bbyOrderId:
+          type: string
+          description: Order ID associated with the appointment.
+          example: "BBY01-1234567890"
+        appointmentDateTime:
+          type: string
+          description: The date time to schedule the appointment.
+        clientExternalId:
+          type: string
+          description: The party id.
+
+    CreateAppointmentResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Unique appointment identifier.
+          example: 100000001
+        confirmationNumber:
+          type: string
+          description: The confirmation code for the appointment.
+          example: "GKWZREPW"
+
+    ErrorDto:
+      type: object
+      properties:
+        status:
+          type: string
+          description: HTTP status code with description.
+        error:
+          type: string
+          description: Detailed error message.

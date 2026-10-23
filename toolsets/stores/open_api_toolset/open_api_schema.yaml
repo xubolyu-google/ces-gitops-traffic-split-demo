@@ -1,0 +1,105 @@
+openapi: 3.0.1
+info:
+  title: Stores Lookup API
+  description: Performs a store lookup based on an entry point phone number to
+    return the display name, store ID, and hotline.
+  version: v2
+servers:
+- url: $env_var
+  description: Webhook URL (GCP Cloud Run)
+paths:
+  /dfcx-dcp-webhook/api/v1/stores/lookup:
+    post:
+      summary: Stores Lookup
+      operationId: storesLookup
+      description: This endpoint performs a store lookup based on an entry point
+        phone number.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DialogflowRequest'
+            example:
+              sessionInfo:
+                parameters:
+                  PhoneNumber: "21212212"
+                  EntryPointNumber: "6129872327"
+      responses:
+        '200':
+          description: Successfully fetched store details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialogflowResponse'
+        '400':
+          description: Invalid phoneNumber or missing parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorSchema'
+
+components:
+  schemas:
+    DialogflowRequest:
+      type: object
+      properties:
+        sessionInfo:
+          type: object
+          properties:
+            parameters:
+              type: object
+              properties:
+                PhoneNumber:
+                  type: string
+                  default: "4087388680"
+                  description: Phone number for ANI lookup
+                EntryPointNumber:
+                  type: string
+                  default: "4087388680"
+                  description: Entry point phone number
+
+    DialogflowResponse:
+      type: object
+      properties:
+        sessionInfo:
+          type: object
+          properties:
+            parameters:
+              type: object
+              properties:
+                display_name:
+                  type: string
+                store_id:
+                  type: string
+                hotline:
+                  type: string
+
+    ErrorDto:
+      type: object
+      properties:
+        status:
+          type: string
+        error:
+          type: string
+
+    ErrorSchema:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        status:
+          type: integer
+        error:
+          type: string
+        message:
+          type: string
+        path:
+          type: string

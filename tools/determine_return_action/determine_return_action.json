@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "determine_return_action",
+    "pythonCode": "tools/determine_return_action/python_function/python_code.py",
+    "description": "Determines the next steps for a return inquiry involving a mix of items.\n\nArgs:\n    is_large_product (bool): True if it is a large product.\n    \nReturns:\n    dict[str, Any]: A dictionary with instructions and message for the agent."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "determine_return_action"
+}

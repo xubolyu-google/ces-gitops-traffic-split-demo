@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "connect_to_live_agent_request_menu",
+    "pythonCode": "tools/connect_to_live_agent_request_menu/python_function/python_code.py",
+    "description": "Connects the user to the live agent request menu which will prompt and route the user to the desired live agent queue.\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "connect_to_live_agent_request_menu"
+}

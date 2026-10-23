@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "check_service_entitlement",
+    "pythonCode": "tools/check_service_entitlement/python_function/python_code.py",
+    "description": "Determines the next conversational step based on user eligibility.\n\nThe Agent MUST strictly execute the instructions returned by this tool without\ndeviation.\n\nArgs:\n    path_type: The service path type string, e.g. \"Dotcom_SelfService_ServiceTriage\".\n    link: The URL/link associated with the selected service path option.\n\nReturns:\n    str: A mandatory instruction set that the agent MUST follow to continue\n      the conversation flow."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "check_service_entitlement"
+}

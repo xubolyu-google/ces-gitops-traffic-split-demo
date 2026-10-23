@@ -1,0 +1,12 @@
+{
+  "displayName": "LMI",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/LMI/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "APIs for retrieving LMI Pin and LMI Status by call ID."
+}

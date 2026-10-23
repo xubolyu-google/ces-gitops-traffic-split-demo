@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "play_message_data_rates_legal_disclosure",
+    "pythonCode": "tools/play_message_data_rates_legal_disclosure/python_function/python_code.py",
+    "description": "Play the mandatory text message and date rates legal disclosure that a user needs to explicitly consent to before you can send an SMS for appointment booking."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "play_message_data_rates_legal_disclosure"
+}

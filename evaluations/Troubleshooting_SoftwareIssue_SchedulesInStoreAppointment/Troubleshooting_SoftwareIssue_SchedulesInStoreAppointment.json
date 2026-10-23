@@ -1,0 +1,69 @@
+{
+  "displayName": "Troubleshooting_SoftwareIssue_SchedulesInStoreAppointment",
+  "tags": ["troubleshooting"],
+  "scenario": {
+    "task": "The user\u0027s goal is to have their computer issue resolved during the call or schedule an in-person appointment.\n\nThe user\u0027s computer runs slowly when viewing YouTube videos.\n\nIf the agent offers troubleshooting steps, the user should follow the agent\u0027s instructions. When the agent asks if the troubleshooting steps fixed the issue, the user must always respond that the steps did not help. Do not request a specific appointment time yourself. Let the agent offer a time first, and universally accept whatever time they provide immediately.",
+    "userFacts": [{
+      "name": "Device type",
+      "value": "Chromebook"
+    }],
+    "maxTurns": 20,
+    "variableOverrides": {
+      "current_date": "2026-01-02",
+      "mock_ani_lookup_response": {
+        "sessionInfo": {
+          "parameters": {
+            "membership": "Total",
+            "partyID": ["5001112222"],
+            "with_ani_lookup": true
+          }
+        }
+      },
+      "mock_create_appointment_response": {
+        "sessionInfo": {
+          "parameters": {
+            "response": {
+              "confirmationNumber": "VXX32J3VK"
+            }
+          }
+        }
+      },
+      "mock_get_appointment_slots_response": {
+        "sessionInfo": {
+          "parameters": {
+            "response": {
+              "slotTime": ["2026-01-03T10:00:00.000Z", "2026-01-03T16:20:00.000Z", "2026-01-03T16:40:00.000Z", "2026-01-03T17:40:00.000Z", "2026-01-03T18:40:00.000Z"],
+              "storeId": "281",
+              "storeName": "Richfield"
+            }
+          }
+        }
+      },
+      "mock_get_call_context_response": {
+        "sessionInfo": {
+          "parameters": {
+            "callContext": {
+              "data": {
+                "entryPointNumber": "1112223333",
+                "phoneNumber": "1112223333"
+              }
+            }
+          }
+        }
+      },
+      "mock_store_lookup_response": {
+        "sessionInfo": {
+          "parameters": {
+            "display_name": "Richfield",
+            "hotline": "retail",
+            "store_id": "281",
+            "store_id4": "0281"
+          }
+        }
+      }
+    },
+    "taskCompletionBehavior": "TASK_SATISFIED",
+    "userGoalBehavior": "USER_GOAL_SATISFIED",
+    "evaluationExpectations": ["Schedules an in-person appointment."]
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "get_context_by_party_id",
+    "pythonCode": "tools/get_context_by_party_id/python_function/python_code.py",
+    "description": "Retrieves service context for a given party ID, and determine if the proactive experience should be triggered or not from the response\n\nThis must be called when entering the Check_Proactive subtask.\nThe channel is automatically derived from the \u0027source\u0027 field in dfcx_params.\n\nReturns:\n    dict: returns a dictionary with 2 parameters, paths parameter of type list, that would have the latest context created by the user, and a isProactive flag, that would indicate if the proactive experience is to be triggered or not.\n\n    Success Schema (list of service paths):\n      - paths (list[dict]): List of service path objects, each containing:\n        - serviceContextNumber (str): Unique identifier for the service context.\n        - link (str): URL to the adaptive support router.\n        - ranking (int): Priority ranking of this service path.\n        - type (str): The type of service path. Used to determine entitlement:\n            - If any path has status.state \u003d \"AVAILABLE\", user is entitled.\n            - If no paths are available and any path type includes \"PaidSupport\",\n              offer_paid_support \u003d True.\n        - status (dict): Contains:\n            - state (str): Current state of the path (e.g., \"AVAILABLE\").\n            - updated (str): Timestamp of the last status update.\n        - number (str): Unique path number identifier.\n      - isProactive (bool): Flag indicating whether proactive support is enabled.\n\n    Failure Schema:\n        - agent_action (str): Explicit instructions that you, the AI agent, MUST\n          follow immediately and exactly as written to recover from the failure."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "get_context_by_party_id"
+}

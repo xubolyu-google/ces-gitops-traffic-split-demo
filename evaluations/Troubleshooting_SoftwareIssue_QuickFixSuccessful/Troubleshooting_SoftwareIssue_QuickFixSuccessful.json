@@ -1,0 +1,40 @@
+{
+  "displayName": "Troubleshooting_SoftwareIssue_QuickFixSuccessful",
+  "tags": ["troubleshooting"],
+  "scenario": {
+    "task": "The user\u0027s goal is to present their computing issue to the agent and then walk through a step-by-step solution to the computing issue as guided by the agent.\n\nThe user\u0027s computer is running slow when viewing youtube videos. When the agent offers troubleshooting steps to address the user\u0027s issue, the user should walk through the steps as per the agent\u0027s instructions. When the agent prompts the user whether their issue was fixed by the troubleshooting steps, the user must always respond affirmatively that the issue is fixed.",
+    "userFacts": [{
+      "name": "Device type",
+      "value": "ASUS Windows"
+    }],
+    "maxTurns": 20,
+    "variableOverrides": {
+      "current_date": "2026-01-02",
+      "mock_ani_lookup_response": {
+        "sessionInfo": {
+          "parameters": {
+            "membership": "Total",
+            "partyID": ["5001112222"],
+            "with_ani_lookup": true
+          }
+        }
+      },
+      "mock_get_call_context_response": {
+        "sessionInfo": {
+          "parameters": {
+            "callContext": {
+              "data": {
+                "entryPointNumber": "1112223333",
+                "phoneNumber": "1112223333"
+              }
+            }
+          }
+        }
+      }
+    },
+    "taskCompletionBehavior": "TASK_SATISFIED",
+    "userGoalBehavior": "USER_GOAL_SATISFIED",
+    "evaluationExpectations": ["Troubleshoots the computer issue."]
+  },
+  "invalid": true
+}

@@ -1,0 +1,7 @@
+{
+  "displayName": "steering_dfcx_user_query",
+  "llmCriteria": {
+    "prompt": "The agent must call `connect_to_dfcx_agent` tool with a `user_query` set to something that reasonably captures the user\u0027s call reason."
+  },
+  "tags": ["steering"]
+}

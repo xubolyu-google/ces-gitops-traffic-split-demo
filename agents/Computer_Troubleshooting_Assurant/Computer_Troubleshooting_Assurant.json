@@ -1,0 +1,49 @@
+{
+  "displayName": "Computer Troubleshooting Assurant",
+  "description": "This agent helps the user to troubleshoot software or hardware issues with their computer with adaptive support integration.",
+  "instruction": "agents/Computer_Troubleshooting_Assurant/instruction.txt",
+  "tools": ["call_wrapup", "check_appointment_slots", "check_lmi_session_status", "check_service_entitlement", "check_support_entitlement", "classify_user_issue_as_hardware", "classify_user_issue_as_software", "connect_to_computing_service_live_agent", "connect_to_dfcx_agent", "connect_to_extension_queue", "connect_to_live_agent_request_menu", "connect_to_manufacturer_queue", "connect_to_spanish_agent", "create_and_get_service_context", "create_appointment", "end_session", "generate_lmi_pin", "get_context_by_party_id", "get_purchase_history", "manufacturer_handoff", "play_fallback_sms_scheduling_offer", "play_message_data_rates_legal_disclosure", "play_proactive_sms_scheduling_offer", "play_sms_mail_in_repair", "present_service_path_option", "send_appointment_link_sms", "set_alternative_sms_number", "set_appointment_date_preference", "set_appointment_location_preference", "set_product_info", "set_user_problem", "track_lmi_offered", "transfer_to_offer_text_agent"],
+  "beforeAgentCallbacks": [{
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/before_agent_callbacks/before_agent_callbacks_01/python_code.py",
+    "description": "Update the `schedule_appointment_instruction` variable once upon entering the Computer Troubleshooting Agent."
+  }, {
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/before_agent_callbacks/before_agent_callbacks_02/python_code.py",
+    "description": "Update the `determine_service_context_instruction` variable once upon entering the Computer Troubleshooting Agent."
+  }, {
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/before_agent_callbacks/before_agent_callbacks_03/python_code.py",
+    "description": "Sets the flag \"enable_fallback_and_reclassification\" to disable reclassification only for lightweight steering agent."
+  }],
+  "afterAgentCallbacks": [{
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/after_agent_callbacks/after_agent_callbacks_01/python_code.py",
+    "description": "[10-step Limit Handling] Reset LLM steps to 0 at the end of the turn."
+  }],
+  "beforeModelCallbacks": [{
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/before_model_callbacks/before_model_callbacks_01/python_code.py",
+    "description": "[10-step Limit Handling] Count the LLM steps and prevent the conversation from failing due to reaching 10-step limit by returning a fallback response at 10th step."
+  }, {
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/before_model_callbacks/before_model_callbacks_02/python_code.py",
+    "description": "Handle DFCX agent transfer (for spanish, agent request menu) or Twilio queue transfer (for extension or live agent). Also hides transfer_to_agent to prevent native transfers and always force tool calls."
+  }, {
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/before_model_callbacks/before_model_callbacks_03/python_code.py",
+    "description": "Handle no input."
+  }, {
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/before_model_callbacks/before_model_callbacks_04/python_code.py",
+    "description": "Hide tools from the agent when their prerequisite tools are not called or if the tools is not eligible for the current user. Handles the following list of tools (format: Tool: [Prerequisite]):\n- set_appointment_date_preference: [non-empty party_ids]\n- set_appointment_location_preference: [non-empty party_ids]\n- check_appointment_slots: [non-empty party_ids, called set_appointment_date_preference and set_appointment_location_preference]\n- create_appointment: [non-empty party_ids, called check_appointment_slots]\n- send_appointment_link_sms: [called play_sms_legal_disclosure]"
+  }, {
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/before_model_callbacks/before_model_callbacks_05/python_code.py",
+    "description": "Play SMS disclosures, e.g. \"one-time text\" offer and \"message and data rates may apply\" legal disclosure."
+  }, {
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/before_model_callbacks/before_model_callbacks_06/python_code.py",
+    "description": "Calls the get LMI status tool to check if LMI session was created."
+  }],
+  "afterModelCallbacks": [{
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/after_model_callbacks/after_model_callbacks_01/python_code.py",
+    "description": "Add a filler response before the slow tool calls."
+  }, {
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/after_model_callbacks/after_model_callbacks_02/python_code.py",
+    "description": "Transfers to Graceful Signoff Agent when tools set the should_transfer_to_graceful_signoff variable to True. This approach improves transfer reliability over explicit transfer instructions directly in the prompt."
+  }, {
+    "pythonCode": "agents/Computer_Troubleshooting_Assurant/after_model_callbacks/after_model_callbacks_03/python_code.py",
+    "description": "Transfers to Offer Text Agent  when tools set the should_connect_to_offer_text_agent variable to True. This approach improves transfer reliability over explicit transfer instructions directly in the prompt."
+  }]
+}

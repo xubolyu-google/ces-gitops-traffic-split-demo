@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_hardware_status",
+    "pythonCode": "tools/set_hardware_status/python_function/python_code.py",
+    "description": "Sets the hardware status context variable to separate triage from detailed classification.\n\nThis function allows the agent to defer the specific hardware status classification\nuntil after the initial triage is complete.\n\nArgs:\n    status (str): The specific status of the hardware.\n        Valid values:\n        - \"Broken/Nonfunctional\"\n        - \"Unknown\"\n        - \"Like New\"\n        - \"Normal\"\n        - \"Lost/Stolen\"\n        - \"Damaged\"\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_hardware_status"
+}

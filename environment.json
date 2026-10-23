@@ -1,0 +1,72 @@
+{
+  "app": {
+    "loggingSettings": {
+      "bigqueryExportSettings": {
+        "project": "xubo-test-project-441166",
+        "dataset": "bestbuy_agent_logs_autopush"
+      }
+    }
+  },
+  "toolsets": {
+    "ANI": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app/api/v1"
+      }
+    },
+    "LMI": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app/api/lmi"
+      }
+    },
+    "SMS": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app/api/v2"
+      }
+    },
+    "call_context": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app/adapters/twilio/api/v1/voice"
+      }
+    },
+    "create_and_get_service_context": {
+      "openApiToolset": {
+        "url": "https://dcp-prxy-wbhk-dev.int.dev.gcp.bestbuy.com/dcp-proxy-webhook"
+      }
+    },
+    "get_context_by_party_id": {
+      "openApiToolset": {
+        "url": "https://dcp-prxy-wbhk-dev.int.dev.gcp.bestbuy.com/dcp-proxy-webhook"
+      }
+    },
+    "home_appointment": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app/home_appointment"
+      }
+    },
+    "init_json": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app"
+      }
+    },
+    "instore_appointment": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app/instore_appointment"
+      }
+    },
+    "order": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app/api/v2"
+      }
+    },
+    "purchase_history": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app/api/v1/orders"
+      }
+    },
+    "stores": {
+      "openApiToolset": {
+        "url": "https://mock-api-service-1092502201143.us-central1.run.app/stores"
+      }
+    }
+  }
+}

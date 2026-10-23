@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "call_wrapup",
+    "pythonCode": "tools/call_wrapup/python_function/python_code.py",
+    "description": "Transfers the user to the Graceful Signoff agent.\n\nCRITICAL INSTRUCTION FOR AUDIO TRANSITIONS:\nYou MUST call this tool SILENTLY. Do NOT generate any conversational text,\ntransitional phrases, or sign-offs (e.g., \"Please wait\", \"I will transfer\nyou\", \"Glad that fixed it\") in the same turn that you call this tool.\n\nThe Graceful Signoff Agent is specifically designed to speak the final\ntransitional phrases and sign-offs to the user. Generating text before\ncalling this tool will cause the user to hear duplicate, jarring audio.\nOnly the Graceful Signoff Agent should speak during this transition.\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "call_wrapup"
+}

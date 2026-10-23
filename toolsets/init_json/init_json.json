@@ -1,0 +1,12 @@
+{
+  "displayName": "init_json",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/init_json/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "Fetch the initialize parameters for emergency messages and DFCX transfer."
+}

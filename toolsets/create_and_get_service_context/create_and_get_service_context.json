@@ -1,0 +1,12 @@
+{
+  "displayName": "create_and_get_service_context",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/create_and_get_service_context/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "create and fetch service context in adaptive support."
+}

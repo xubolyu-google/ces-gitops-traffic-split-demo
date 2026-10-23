@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "get_home_appointment_arrival_time",
+    "pythonCode": "tools/get_home_appointment_arrival_time/python_function/python_code.py",
+    "description": "Retrieves arrival information for multiple home appointments.\n\nArgs:\n    appointment_ids (list[str]): A list of appointment IDs to retrieve arrival info for.\n\nReturns:\n    dict[str, Any]: A dictionary where each key is an appointment ID and the value is the corresponding arrival information."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "get_home_appointment_arrival_time"
+}

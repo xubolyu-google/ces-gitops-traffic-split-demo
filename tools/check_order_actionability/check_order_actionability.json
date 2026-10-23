@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "check_order_actionability",
+    "pythonCode": "tools/check_order_actionability/python_function/python_code.py",
+    "description": "Checks if the active order can be cancelled or modified and returns instructions.\n\nArgs:\n    action_type (str): The action to check, either \u0027cancel\u0027 or \u0027modify\u0027.\n\nReturns:\n    dict[str, Any]: A dictionary with actionability results and instructions."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "check_order_actionability"
+}

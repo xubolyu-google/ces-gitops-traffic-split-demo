@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "present_service_path_option",
+    "pythonCode": "tools/present_service_path_option/python_function/python_code.py",
+    "description": "Returns the exact phrase to present to the user for a given service path type.\n\nThe agent MUST say the returned phrase exactly as-is to the user, then wait\nfor the user\u0027s response before proceeding.\n\nArgs:\n    path_type: The service path type from the create_and_get_service_context\n        response (e.g. \"Dotcom_SelfService_ServiceTriage\").\n\nReturns:\n    dict: Contains:\n        - phrase (str): The exact text to say to the user.\n        - requires_confirmation (bool): Whether the agent should wait for\n          a yes/no response. False means the phrase is informational only\n          (e.g. manufacturer deflect) and counts as auto-accepted."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "present_service_path_option"
+}

@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_appointment_date_preference",
+    "pythonCode": "tools/set_appointment_date_preference/python_function/python_code.py",
+    "description": "Sets the user\u0027s preferred date range for an in-store appointment.\n\nPRE-REQUISITES:\n  - You MUST only call this tool after the user has explicitly provided their\n    appointment date preferences. Do not assume date preferences without\n    explicitly gathering them from the user.\n\nArgs:\n  start_date (str): The inclusive start date (yyyy-mm-dd).\n    - EXAMPLE: If user wants \"Friday\" and today is Monday 2026-03-02,\n      use \u00272026-03-06\u0027\n  end_date (str): The exclusive end date (yyyy-mm-dd).\n    - RULE: This must be the day AFTER the last day the user prefers.\n    - EXAMPLE: If today is 2026-02-12 and user wants \"tomorrow\", use\n      \u00272026-02-14\u0027."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_appointment_date_preference"
+}

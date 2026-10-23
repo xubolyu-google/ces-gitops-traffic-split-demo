@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "route_order_management_intent",
+    "pythonCode": "tools/route_order_management_intent/python_function/python_code.py",
+    "description": "Handles routing of an order management intent.\n\nArgs:\n    user_query (str): a summary of the user\u0027s intent.\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "route_order_management_intent"
+}

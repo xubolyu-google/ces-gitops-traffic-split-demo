@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "manufacturer_handoff",
+    "pythonCode": "tools/manufacturer_handoff/python_function/python_code.py",
+    "description": "Determines the next conversational step based on user eligibility.\n\nThe Agent MUST strictly execute the instructions returned by this tool without\ndeviation.\n\n### PRE-REQUISITES:\nBefore calling this tool, the agent MUST have identified:\n- The `product_type` and called `set_product_info` to store it.\n- The issue `classification` (\u0027software\u0027 or \u0027hardware\u0027), and\n  called `set_classification` tool to store it.\n\nReturns:\n    str: A mandatory instruction set that the agent MUST follow to continue\n      the conversation flow."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "manufacturer_handoff"
+}

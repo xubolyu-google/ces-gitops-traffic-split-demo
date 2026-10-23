@@ -1,0 +1,43 @@
+{
+  "displayName": "Computer Troubleshooting Laptop",
+  "scenario": {
+    "task": "State device issue.",
+    "scenarioExpectations": [{
+      "toolExpectation": {
+        "expectedToolCall": {
+          "tool": "route_computer_troubleshooting_intent",
+          "args": {
+            "user_problem": {
+              "$matchType": "ignore",
+              "$matchValue": "",
+              "$originalValue": "My laptop won\u0027t turn on"
+            }
+          },
+          "displayName": "route_computer_troubleshooting_intent"
+        },
+        "mockToolResponse": {
+          "tool": "route_computer_troubleshooting_intent",
+          "response": {
+            "result": ""
+          },
+          "displayName": "route_computer_troubleshooting_intent"
+        }
+      }
+    }],
+    "userFacts": [{
+      "name": "device_type",
+      "value": "laptop"
+    }, {
+      "name": "issue",
+      "value": "won\u0027t turn on"
+    }, {
+      "name": "current_date",
+      "value": "2026-04-15"
+    }],
+    "maxTurns": 10,
+    "variableOverrides": {
+      "current_date": "2026-04-15[America/Los_Angeles]"
+    },
+    "userGoalBehavior": "USER_GOAL_SATISFIED"
+  }
+}

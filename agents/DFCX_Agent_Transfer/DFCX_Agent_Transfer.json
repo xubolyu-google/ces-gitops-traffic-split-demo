@@ -1,0 +1,10 @@
+{
+  "displayName": "DFCX Agent Transfer",
+  "description": "Immediately transfer to the DFCX agent.",
+  "modelSettings": {
+  },
+  "beforeModelCallbacks": [{
+    "pythonCode": "agents/DFCX_Agent_Transfer/before_model_callbacks/before_model_callbacks_01/python_code.py",
+    "description": "Transfer to the DFCX agent."
+  }]
+}

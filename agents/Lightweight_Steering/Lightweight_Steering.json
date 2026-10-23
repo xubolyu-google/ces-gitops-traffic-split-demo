@@ -1,0 +1,30 @@
+{
+  "displayName": "Lightweight Steering",
+  "description": "Lightweight steering agent which does some prepopulation and then handles agent handoff.",
+  "modelSettings": {
+  },
+  "instruction": "agents/Lightweight_Steering/instruction.txt",
+  "tools": ["ani_lookup", "connect_to_dfcx_agent", "connect_to_extension_queue", "connect_to_live_agent_request_menu", "connect_to_spanish_agent", "end_session", "fetch_init_json", "get_call_context", "route_computer_troubleshooting_intent", "route_order_management_intent", "store_lookup"],
+  "childAgents": ["Computer Troubleshooting Agent", "Computer Troubleshooting Assurant", "DFCX Agent Transfer", "Graceful Signoff Agent", "Offer Text Agent", "Order Management Agent"],
+  "beforeAgentCallbacks": [{
+    "pythonCode": "agents/Lightweight_Steering/before_agent_callbacks/before_agent_callbacks_01/python_code.py",
+    "description": "Sets the flag \"enable_fallback_and_reclassification\" to enable reclassification only for lightweight steering agent."
+  }],
+  "afterAgentCallbacks": [{
+    "pythonCode": "agents/Lightweight_Steering/after_agent_callbacks/after_agent_callbacks_01/python_code.py",
+    "description": "[10-step Limit Handling] Reset LLM steps to 0 at the end of the turn."
+  }],
+  "beforeModelCallbacks": [{
+    "pythonCode": "agents/Lightweight_Steering/before_model_callbacks/before_model_callbacks_01/python_code.py",
+    "description": "[10-step Limit Handling] Count the LLM steps and prevent the conversation from failing due to reaching 10-step limit by returning a fallback response at 10th step."
+  }, {
+    "pythonCode": "agents/Lightweight_Steering/before_model_callbacks/before_model_callbacks_02/python_code.py",
+    "description": "Deterministic greeting:\n1. Call get_call_context and fetch_init_json\n2. Call store_lookup\n3. Play no barge in greeting and legal disclaimer, and run ANI lookup in parallel\n4. Play membership, spanish/extension, emergency message, and proactive message."
+  }, {
+    "pythonCode": "agents/Lightweight_Steering/before_model_callbacks/before_model_callbacks_03/python_code.py",
+    "description": "Handle DFCX agent transfer (for non-computing-troubleshooting intents, spanish, agent request menu), Computer Troubleshooting Agent transfer, or Twilio queue transfer (for extension). Also hides transfer_to_agent to prevent native transfers and always force tool calls."
+  }, {
+    "pythonCode": "agents/Lightweight_Steering/before_model_callbacks/before_model_callbacks_04/python_code.py",
+    "description": "Handle no input."
+  }]
+}

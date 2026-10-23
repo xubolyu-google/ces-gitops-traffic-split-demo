@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "fetch_init_json",
+    "pythonCode": "tools/fetch_init_json/python_function/python_code.py",
+    "description": "Fetch the initialize parameters for emergency messages and DFCX transfer."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "fetch_init_json"
+}

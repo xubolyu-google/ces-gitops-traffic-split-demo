@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_classification",
+    "pythonCode": "tools/set_classification/python_function/python_code.py",
+    "description": "Sets the classification of the user\u0027s computer troubleshooting issue as either hardware or software.\n\nArgs:\n    status (str): The classification. Can be either \"hardware\" or \"software\".\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_classification"
+}

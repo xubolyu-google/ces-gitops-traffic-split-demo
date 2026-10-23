@@ -1,0 +1,509 @@
+openapi: 3.0.0
+info:
+  title: ANI API
+  version: v1
+  description: This API allows users to perform an ANI (Automatic Number
+    Identification) lookup using a phone number and returns ANI details for the
+    provided phone number.
+servers:
+- url: $env_var
+  description: Web-hook base URL for the API
+tags:
+- name: ANI Lookup
+  description: Operations related to Automatic Number Identification lookup
+
+paths:
+  /ani:
+    post:
+      summary: Perform ANI Lookup
+      operationId: aniLookup
+      tags:
+      - ANI Lookup
+      parameters:
+      - $ref: '#/components/parameters/sessionId'
+      - name: includeOrders
+        in: query
+        description: Flag to include order details in the response data
+        required: false
+        schema:
+          type: boolean
+          default: false
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AniLookupRequest'
+      responses:
+        '200':
+          description: Successfully fetched ANI details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AniLookupResponse'
+              examples:
+                AniLookupSuccessful:
+                  value:
+                    sessionInfo:
+                      parameters:
+                        isProactive:
+                          isFailedAuthMembership: false
+                          isOrderInstallDelivery: false
+                          isOrderReadyForPickUp: false
+                          isOrdersOpen: true
+                          isOrderOpen15D: true
+                          isExpiredCard: false
+                          isOpenRepairs: false
+                          isRepairAppointment: false
+                          isTTSContract: false
+                          isInstoreAppt: false
+                          callRoutingTagFromBB: "proactive"
+                        fulfillmentType: "InStore"
+                        zipCode: "94040"
+                        firstName: "AL***"
+                        lastName: "A**"
+                        email: "AL****************COM"
+                        getItByDate: "none"
+                        lmiSessionID: ""
+                        groupStatus: "none"
+                        partyID:
+                        - "5008728172"
+                        - "5007053143"
+                        appointmentDate: "1990-01-01T00:00:00-05:00"
+                        membershipStatus: "3"
+                        membership: "Total"
+                        orderItemApptStartWithinRange: false
+                        orders:
+                          orderDetails:
+                          - created: "2025-12-18T11:58:08"
+                            enterpriseCode: "BESTBUY"
+                            headerKey: "2025121811581152871913"
+                            id: "BBY01-806283120501"
+                            isComplete: "false"
+                            isOptedInForSMS: "false"
+                            isSaleVoided: "false"
+                            itemStats:
+                              totalCount: 1
+                              maxHoursDelayed: 251
+                              deliveredToHomeCount: 0
+                              storePickupCount: 1
+                              shipToHomeCount: 0
+                              distinctStatusCount: 1
+                              modifyPickupDateAllowedCount: 0
+                              modifyShipToAddressAllowedCount: 0
+                              modifyStoreToHomeAllowedCount: 0
+                              modifyHomeToStoreAllowedCount: 0
+                              modifyPickupLocationAllowedCount: 0
+                              addFriendsAndFamilyAllowedCount: 0
+                              updateFriendsAndFamilyAllowedCount: 0
+                              deleteFriendsAndFamilyAllowedCount: 0
+                              customerModifyEnableCount: 0
+                              cancellableCount: 0
+                              freeGiftCount: 0
+                              addGSPAllowedCount: 0
+                              modifyPickupAutoCancelDateAllowedCount: 0
+                              addAllowanceAllowedCount: 0
+                            orderItems:
+                            - appointment:
+                                isReschedulable: "false"
+                              department:
+                                id: "6"
+                              headerKey: "2025121811581252872234"
+                              id: "2641102"
+                              itemDescription: "HP 15R263DX NOTEBOOK"
+                              lineType: "InStore"
+                              pickupStoreID: "611"
+                              severity: "info"
+                              sku: "3008105"
+                              status:
+                                code: "3700.11500"
+                                description: "Customer Picked Up and Invoiced"
+                                rescheduleAllowed: "false"
+                                itemModificationFlag:
+                                  isCancellable: "false"
+                                  modifyPickupDateAllowed: "false"
+                                  modifyShipToAddressAllowed: "false"
+                                  modifyStoreToHomeAllowed: "false"
+                                  modifyHomeToStoreAllowed: "false"
+                                  modifyPickupLocationAllowed: "false"
+                                  addFriendsAndFamilyAllowed: "false"
+                                  updateFriendsAndFamilyAllowed: "false"
+                                  deleteFriendsAndFamilyAllowed: "false"
+                                  addGSPAllowed: "false"
+                                  modifyPickupAutoCancelDateAllowed: "false"
+                                  addAllowanceAllowed: "false"
+                              customerStatusInfo:
+                                shortDescription: "Picked up on Dec 18, 2025 at Eden
+                                  Prairie, MN."
+                                longDescription: "Picked up on Dec 18, 2025 at Eden
+                                  Prairie, MN."
+                                voiceDescription: "You picked up your order on Thursday,
+                                  December 18 at Eden Prairie, MN."
+                              trackerType: "purchase"
+                              trackingInfo:
+                                expectedArrivalDate: "2025-12-18T00:00:00"
+                              type: "Product"
+                              workOrders:
+                              - {}
+                              brand: "HP"
+                              typeInfo: "Laptop_Computers"
+                              classification:
+                              - "Laptop Computer"
+                              price:
+                                itemTotal: 299.99
+                              class:
+                                id: "768"
+                              subclass:
+                                id: "5321"
+                              isFreeGift: false
+                            paymentStatus: "PAID"
+                            salesSource: "BBYC"
+                            sellerOrganizationCode: "BESTBUY"
+                            status: "Customer Picked Up and Invoiced"
+                            total: 325.56
+                            isModifiableByCustomer: "false"
+                            modifyBillToAddressAllowed: "false"
+                            addCreditCardAllowed: "false"
+                            retryPaymentAllowed: "false"
+                            is3POrder: false
+                            createdCalendarDate: "December 18, 2025"
+                            "3POrderEligibleForEscalation": false
+                          - created: "2025-12-09T09:47:08"
+                            enterpriseCode: "BESTBUY"
+                            headerKey: "2025120909471063257317"
+                            id: "BBY01-806283108423"
+                            isComplete: "false"
+                            isOptedInForSMS: "false"
+                            isSaleVoided: "false"
+                            itemStats:
+                              totalCount: 1
+                              maxHoursDelayed: 443
+                              deliveredToHomeCount: 0
+                              storePickupCount: 1
+                              shipToHomeCount: 0
+                              distinctStatusCount: 1
+                              modifyPickupDateAllowedCount: 0
+                              modifyShipToAddressAllowedCount: 0
+                              modifyStoreToHomeAllowedCount: 0
+                              modifyHomeToStoreAllowedCount: 0
+                              modifyPickupLocationAllowedCount: 0
+                              addFriendsAndFamilyAllowedCount: 0
+                              updateFriendsAndFamilyAllowedCount: 0
+                              deleteFriendsAndFamilyAllowedCount: 0
+                              customerModifyEnableCount: 0
+                              cancellableCount: 0
+                              freeGiftCount: 0
+                              addGSPAllowedCount: 0
+                              modifyPickupAutoCancelDateAllowedCount: 0
+                              addAllowanceAllowedCount: 0
+                            orderItems:
+                            - appointment:
+                                isReschedulable: "false"
+                              department:
+                                id: "1"
+                              headerKey: "2025120909471063257343"
+                              id: "5694467"
+                              itemDescription: "Bose SoundLink Flex 2nd Gen Portable
+                                Bluetooth Speaker"
+                              lineType: "InStore"
+                              pickupStoreID: "611"
+                              sku: "6590416"
+                              status:
+                                code: "9000"
+                                description: "Cancelled"
+                                rescheduleAllowed: "false"
+                                itemModificationFlag:
+                                  isCancellable: "false"
+                              customerStatusInfo:
+                                shortDescription: "Canceled"
+                                longDescription: "Canceled"
+                                voiceDescription: "Your Best Buy order was canceled
+                                  on Friday, December 19."
+                              trackerType: "Canceled"
+                              trackingInfo:
+                                expectedArrivalDate: "2025-12-10T00:00:00"
+                              type: "Product"
+                              workOrders:
+                              - {}
+                              brand: "Bose"
+                              typeInfo: "Portable_Speakers"
+                              classification:
+                              - "Portable Speaker"
+                              price:
+                                itemTotal: 0
+                              class:
+                                id: "545"
+                              subclass:
+                                id: "490"
+                              isFreeGift: false
+                            paymentStatus: "PAID"
+                            salesSource: "BBYC"
+                            sellerOrganizationCode: "BESTBUY"
+                            status: "Cancelled"
+                            total: 0
+                            isModifiableByCustomer: "false"
+                            modifyBillToAddressAllowed: "false"
+                            addCreditCardAllowed: "false"
+                            retryPaymentAllowed: "false"
+                            is3POrder: false
+                            createdCalendarDate: "December 9, 2025"
+                            "3POrderEligibleForEscalation": false
+                          deliveryInstallOrders: []
+                          storePickupCountLatest: 1
+                          orderCount: 2
+                          deliveryInstallOrdersCount: 0
+                          "3POrderEligibleForEscalation": false
+                        OrderNumber: "BBY01-806283120501"
+                        Class: "768"
+                        Department: "6"
+                        memberID: "01015327847054486484"
+                        open_orders_count_15d: 1
+                        isFailedAuthMembership: false
+                        with_ani_lookup: true
+                        isOrdersOpen: true
+                        isOrderOpen15D: true
+                        callRoutingTagFromBB: "proactive"
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '404':
+          description: The specified phoneNumber does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+              example:
+                status: "404 Not Found"
+                error: "Phone number not found"
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailableError'
+  /ani/ani-deny-list:
+    post:
+      summary: Check ANI Deny List
+      operationId: aniDenyList
+      tags:
+      - ANI Deny List
+      parameters:
+      - $ref: '#/components/parameters/sessionId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AniDenyListRequest'
+      responses:
+        '200':
+          description: Successfully checked deny list status
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AniDenyListResponse'
+              example:
+                sessionInfo:
+                  parameters:
+                    isANIDenyListed: "false"
+        '400':
+          $ref: '#/components/responses/BadRequestError'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+        '503':
+          $ref: '#/components/responses/ServiceUnavailableError'
+
+components:
+  parameters:
+    sessionId:
+      name: x-session-id
+      in: header
+      required: true
+      description: "Session id of the conversation"
+      schema:
+        type: string
+        default: "callSid_1"
+
+  schemas:
+    ErrorDto:
+      type: object
+      properties:
+        status:
+          type: string
+          description: HTTP status code with description.
+          example: 500 Internal Server Error
+        error:
+          type: string
+          description: Detailed error message.
+          example: Error details here
+
+    AniLookupRequest:
+      type: object
+      required:
+      - sessionInfo
+      properties:
+        sessionInfo:
+          type: object
+          properties:
+            parameters:
+              type: object
+              required:
+              - phoneNumber
+              properties:
+                phoneNumber:
+                  type: string
+                  description: Phone number for ANI lookup
+                  default: "+14802559001"
+
+    AniLookupProactive:
+      type: object
+      description: Contains proactive ANI lookup details
+      properties:
+        isFailedAuthMembership:
+          type: boolean
+        isOrderInstallDelivery:
+          type: boolean
+        isOrderReadyForPickUp:
+          type: boolean
+        isOrdersOpen:
+          type: boolean
+        isOrderOpen15D:
+          type: boolean
+        isExpiredCard:
+          type: boolean
+        isOpenRepairs:
+          type: boolean
+        isRepairAppointment:
+          type: boolean
+        isTTSContract:
+          type: boolean
+        isInstoreAppt:
+          type: boolean
+        callRoutingTagFromBB:
+          type: string
+
+    AniLookupResponse:
+      type: object
+      required:
+      - sessionInfo
+      properties:
+        sessionInfo:
+          type: object
+          properties:
+            parameters:
+              type: object
+              properties:
+                isProactive:
+                  $ref: '#/components/schemas/AniLookupProactive'
+                fulfillmentType:
+                  type: string
+                zipCode:
+                  type: string
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+                email:
+                  type: string
+                getItByDate:
+                  type: string
+                lmiSessionID:
+                  type: string
+                groupStatus:
+                  type: string
+                partyID:
+                  type: array
+                  items:
+                    type: string
+                appointmentDate:
+                  type: string
+                membershipStatus:
+                  type: string
+                membership:
+                  type: string
+                orderItemApptStartWithinRange:
+                  type: boolean
+                orders:
+                  type: object
+                OrderNumber:
+                  type: string
+                Class:
+                  type: string
+                Department:
+                  type: string
+                memberID:
+                  type: string
+                open_orders_count_15d:
+                  type: integer
+                isFailedAuthMembership:
+                  type: boolean
+                with_ani_lookup:
+                  type: boolean
+                isOrdersOpen:
+                  type: boolean
+                isOrderOpen15D:
+                  type: boolean
+                callRoutingTagFromBB:
+                  type: string
+
+    AniDenyListRequest:
+      type: object
+      required:
+      - sessionInfo
+      properties:
+        sessionInfo:
+          type: object
+          properties:
+            parameters:
+              type: object
+              required:
+              - PhoneNumber
+              properties:
+                PhoneNumber:
+                  type: string
+                  description: Phone number of the caller
+                  example: "4802554881"
+                entryPointNumber:
+                  type: string
+                  description: Optional entry point number
+                  example: "656565654"
+
+    AniDenyListResponse:
+      type: object
+      properties:
+        sessionInfo:
+          type: object
+          properties:
+            parameters:
+              type: object
+              properties:
+                isANIDenyListed:
+                  type: string
+                  description: Indicates if the ANI is on the deny list
+                  example: "false"
+
+  responses:
+    BadRequestError:
+      description: Invalid phone Number or missing parameters.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDto'
+          example:
+            status: "400 Bad Request"
+            error: "Invalid phone number format"
+    InternalServerError:
+      description: Unexpected error occurred while processing the request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDto'
+          example:
+            status: "500 Internal Server Error"
+            error: "Unexpected error occurred"
+    ServiceUnavailableError:
+      description: The service is temporarily unavailable.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorDto'
+          example:
+            status: "503 Service Unavailable"
+            error: "Service is down for maintenance"

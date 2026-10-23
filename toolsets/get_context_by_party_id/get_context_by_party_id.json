@@ -1,0 +1,12 @@
+{
+  "displayName": "get_context_by_party_id",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/get_context_by_party_id/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "Check if there is an already existing claim created by the user"
+}

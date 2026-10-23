@@ -1,0 +1,7 @@
+{
+  "displayName": "Directs the user to a manufacturer",
+  "llmCriteria": {
+    "prompt": "The agent directs the user to contact the manufacturer."
+  },
+  "tags": ["computer troubleshooting assurant"]
+}

@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "connect_to_extension_queue",
+    "pythonCode": "tools/connect_to_extension_queue/python_function/python_code.py",
+    "description": "Connects the user to the extension queue when the user presses # or requests to reach an extension.\n\nReturns:\n  None: The transfer to the extension queue was successfully initiated.\n    Proceed normally.\n  str: The transfer failed (national line). If a string is returned, you MUST\n    immediately stop your current logic and strictly execute the returned\n    instructions word-for-word to recover from the failure."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "connect_to_extension_queue"
+}

@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "play_fallback_sms_scheduling_offer",
+    "pythonCode": "tools/play_fallback_sms_scheduling_offer/python_function/python_code.py",
+    "description": "Play the fallback one-time text offer for an appointment scheduling link that a user needs to explicitly consent to."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "play_fallback_sms_scheduling_offer"
+}

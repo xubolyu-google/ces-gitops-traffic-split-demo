@@ -1,0 +1,7 @@
+{
+  "displayName": "Schedules an in-person appointment.",
+  "llmCriteria": {
+    "prompt": "The agent should suggest and schedule an in-store appointment for the customer."
+  },
+  "tags": ["computer_troubleshooting_agent"]
+}

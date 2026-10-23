@@ -1,0 +1,239 @@
+{
+  "displayName": "3_Disambiguation_(Weather)___Routing",
+  "tags": ["aside", "aside"],
+  "golden": {
+    "turns": [{
+      "steps": [{
+        "userInput": {
+          "variables": {
+            "mock_ani_denylist_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "isANIDenyListed": "false"
+                }
+              }
+            },
+            "mock_ani_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "appointmentDate": "None",
+                  "email": "ALICE.SMITH@EXAMPLE.COM",
+                  "firstName": "ALICE",
+                  "isProactive": {
+                    "isExpiredCard": false,
+                    "isFailedAuthMembership": false,
+                    "isInstoreAppt": false,
+                    "isOpenRepairs": false,
+                    "isOrderInstallDelivery": true,
+                    "isOrderOpen15D": false,
+                    "isOrderReadyForPickUp": false,
+                    "isOrdersOpen": false,
+                    "isRepairAppointment": false,
+                    "isTTSContract": false
+                  },
+                  "lastName": "SMITH",
+                  "membership": "Total",
+                  "open_orders_count_15d": 1.0,
+                  "orders": {
+                    "orderDetails": [{
+                      "itemStats": {
+                        "distinctStatusCount": 1.0
+                      }
+                    }],
+                    "orderItems": [{
+                      "customerStatusInfo": {
+                        "shortDescription": "Picked up on Dec 18, 2025 at Eden Prairie, MN."
+                      }
+                    }],
+                    "storePickupCountLatest": 1.0
+                  },
+                  "partyID": ["5001112222", "5003334444"],
+                  "with_ani_lookup": true,
+                  "zipCode": "10001"
+                }
+              }
+            },
+            "mock_create_appointment_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "response": {
+                    "confirmationNumber": "VXX32J3VK",
+                    "id": 1330021.0
+                  }
+                }
+              }
+            },
+            "mock_get_appointment_slots_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "response": {
+                    "slotTime": ["2026-01-03T16:20:00.000Z", "2026-01-03T16:40:00.000Z", "2026-01-03T17:40:00.000Z", "2026-01-03T18:40:00.000Z", "2026-01-03T19:20:00.000Z", "2026-01-03T20:20:00.000Z", "2026-01-03T20:40:00.000Z", "2026-01-03T21:40:00.000Z", "2026-01-03T22:20:00.000Z", "2026-01-03T22:40:00.000Z"],
+                    "storeId": "123",
+                    "storeName": "Union Square"
+                  }
+                }
+              }
+            },
+            "mock_get_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "data": {
+                      "entryPointNumber": "4087388680",
+                      "phoneNumber": "1112223333",
+                      "source": "IVR",
+                      "sourceType": "SIP"
+                    }
+                  }
+                }
+              }
+            },
+            "mock_get_lmi_pin_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "lmiResponse": {
+                    "pin": 813122.0
+                  }
+                }
+              }
+            },
+            "mock_get_lmi_status_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "lmiResponse": {
+                    "Browser": "Chrome",
+                    "Status": "SessionNotCreated"
+                  }
+                }
+              }
+            },
+            "mock_purchase_history_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "response": {
+                    "purchases": {
+                      "Acer": [{
+                        "isCoveredByProtectionPlan": true,
+                        "productName": "Acer - R 11 2-in-1 Chromebook",
+                        "whatItIs": ["Laptop", "Chromebook"]
+                      }],
+                      "Apple": [{
+                        "isCoveredByProtectionPlan": false,
+                        "productName": "MacBook Air 13.3",
+                        "whatItIs": ["Laptop", "MacBook"]
+                      }, {
+                        "isCoveredByProtectionPlan": false,
+                        "productName": "MacBook Pro 14",
+                        "whatItIs": ["Laptop", "MacBook"]
+                      }],
+                      "Samsung": [{
+                        "isCoveredByProtectionPlan": true,
+                        "productName": "Samsung Galaxy S24",
+                        "whatItIs": ["Phone", "Cell Phone"]
+                      }]
+                    }
+                  }
+                }
+              }
+            },
+            "mock_send_sms_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "sendSMSResp": {
+                    "message": "sent"
+                  }
+                }
+              }
+            },
+            "mock_set_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "contextKey": "session_id"
+                  }
+                }
+              }
+            },
+            "mock_store_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "display_name": "Union Square",
+                  "hotline": "retail",
+                  "store_id": "123",
+                  "store_id4": "0123"
+                }
+              }
+            }
+          }
+        }
+      }, {
+        "userInput": {
+          "event": {
+            "event": "welcome"
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "Welcome to Best Buy Union Square! You\u0027re interacting with a virtual assistant that\u0027ll use AI to help you. I\u0027m still learning, so I may not get everything right. For quality assurance, your call may be recorded. By continuing, you accept the terms of use and privacy policy on BestBuy.com. Para español, diga \u0027español\u0027. If you have an extension, please say \u0027extension\u0027. And thanks for being a My Best Buy Total member. Now, what can I help you with?"
+            }]
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-38f4dd2e-68ea-4b37-9f0d-e14a1ea7a9c8",
+            "tool": "get_call_context",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-54379c91-7a9b-4cdc-baa2-4540b49419e6",
+            "tool": "store_lookup",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-523b434e-b064-4988-b33e-c69947850818",
+            "tool": "ani_lookup",
+            "args": {
+            }
+          }
+        }
+      }]
+    }, {
+      "steps": [{
+        "userInput": {
+          "text": "What is the weather like today?"
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-fae08b84-a7e5-4719-907f-92eb306c9c27",
+            "tool": "connect_to_dfcx_agent",
+            "args": {
+              "parameters": {
+                "category": "Anything Else",
+                "userQuery": "What is the weather like today?"
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "agentTransfer": {
+            "targetAgent": "DFCX Agent Transfer"
+          }
+        }
+      }]
+    }]
+  }
+}

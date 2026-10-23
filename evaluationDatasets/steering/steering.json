@@ -1,0 +1,4 @@
+{
+  "displayName": "steering",
+  "evaluations": ["steering_live_agent", "steering_national_spanish", "steering_regional_extension", "steering_proactive_pickup", "steering_proactive_failed_auth", "steering_proactive_install_appointment", "steering_proactive_repair_appointment", "steering_proactive_single_order", "steering_scanner_file_troubleshooting", "steering_laptop_repair_reschedule", "steering_printer_hardware_issue", "steering_pc_accessory", "steering_smart_speaker_troubleshooting", "steering_laptop_clarification", "steering_printer_purchase_billing_dispute", "steering_tv_black_screen_clarification", "steering_windows_login_issue", "steering_printer_offline_status"]
+}

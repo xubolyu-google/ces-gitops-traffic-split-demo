@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "determine_price_match_action",
+    "pythonCode": "tools/determine_price_match_action/python_function/python_code.py",
+    "description": "Determines the next steps for a price match request.\n\nArgs:\n    already_purchased (bool): True if the product was already purchased.\n    \nReturns:\n    dict[str, Any]: A dictionary with instructions and message for the agent."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "determine_price_match_action"
+}

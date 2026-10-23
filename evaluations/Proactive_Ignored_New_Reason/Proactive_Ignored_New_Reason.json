@@ -1,0 +1,88 @@
+{
+  "displayName": "Proactive Ignored New Reason",
+  "scenario": {
+    "task": "Ask about new appliance. Then, if asked, ask about specific model stock.",
+    "scenarioExpectations": [{
+      "toolExpectation": {
+        "expectedToolCall": {
+          "tool": "get_call_context",
+          "args": {
+          },
+          "displayName": "get_call_context"
+        },
+        "mockToolResponse": {
+          "tool": "get_call_context",
+          "response": {
+            "phoneNumber": "5553456789"
+          },
+          "displayName": "get_call_context"
+        }
+      }
+    }, {
+      "toolExpectation": {
+        "expectedToolCall": {
+          "tool": "ani_lookup",
+          "args": {
+          },
+          "displayName": "ani_lookup"
+        },
+        "mockToolResponse": {
+          "tool": "ani_lookup",
+          "response": {
+            "email": "jay.jones@example.com",
+            "firstName": "Jay",
+            "lastName": "Jones",
+            "zipCode": "90210"
+          },
+          "displayName": "ani_lookup"
+        }
+      }
+    }, {
+      "toolExpectation": {
+        "expectedToolCall": {
+          "tool": "connect_to_dfcx_agent",
+          "args": {
+            "user_query": {
+              "$matchType": "ignore",
+              "$matchValue": "",
+              "$originalValue": "I want to know if the Samsung Family Hub refrigerator is in stock"
+            }
+          },
+          "displayName": "connect_to_dfcx_agent"
+        },
+        "mockToolResponse": {
+          "tool": "connect_to_dfcx_agent",
+          "response": {
+            "result": ""
+          },
+          "displayName": "connect_to_dfcx_agent"
+        }
+      }
+    }],
+    "userFacts": [{
+      "name": "appliance_type",
+      "value": "refrigerator"
+    }, {
+      "name": "model_name",
+      "value": "Samsung Family Hub"
+    }, {
+      "name": "current_date",
+      "value": "2026-04-15"
+    }],
+    "maxTurns": 10,
+    "variableOverrides": {
+      "current_date": "2026-04-15[America/Los_Angeles]",
+      "customer_phone_number": "5553456789",
+      "entry_point_phone_number": "5559876543",
+      "mock_ani_lookup_response": {
+        "parameters": null,
+        "sessionInfo": null
+      },
+      "mock_get_call_context_response": {
+        "parameters": null,
+        "sessionInfo": null
+      }
+    },
+    "userGoalBehavior": "USER_GOAL_SATISFIED"
+  }
+}

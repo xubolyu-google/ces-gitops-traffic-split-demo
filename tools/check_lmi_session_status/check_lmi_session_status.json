@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "check_lmi_session_status",
+    "pythonCode": "tools/check_lmi_session_status/python_function/python_code.py",
+    "description": "Sets the lmi_session_created flag to begin polling for the LMI session.\n\nThis tool must only be called AFTER the agent has retrieved and walked the\ncustomer through the LMI setup instructions via the lmi_sop tool. Calling\nthis tool prematurely (before lmi_sop) will skip the setup steps."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "check_lmi_session_status"
+}

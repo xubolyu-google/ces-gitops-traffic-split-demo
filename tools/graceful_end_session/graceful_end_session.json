@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "graceful_end_session",
+    "pythonCode": "tools/graceful_end_session/python_function/python_code.py",
+    "description": "End the session with a graceful goodbye message.\n\nThe Agent MUST strictly execute the instructions returned by this tool without\n  deviation.\n\nReturns:\n    str: A mandatory instruction set that the agent MUST follow to end\n      the conversation flow."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "graceful_end_session"
+}

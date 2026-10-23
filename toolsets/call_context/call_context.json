@@ -1,0 +1,12 @@
+{
+  "displayName": "call_context",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/call_context/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "Retrieve and store call context data."
+}

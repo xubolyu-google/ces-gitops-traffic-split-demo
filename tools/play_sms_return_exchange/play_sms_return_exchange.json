@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "play_sms_return_exchange",
+    "pythonCode": "tools/play_sms_return_exchange/python_function/python_code.py",
+    "description": "Play the fallback one-time text offer for a return or exchange that a user needs to explicitly consent to."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "play_sms_return_exchange"
+}

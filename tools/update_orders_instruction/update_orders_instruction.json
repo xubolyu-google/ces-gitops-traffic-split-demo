@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "update_orders_instruction",
+    "pythonCode": "tools/update_orders_instruction/python_function/python_code.py",
+    "description": "Dynamically constructs and updates order_management_subtasks_instruction based on intent and prerequisite tool states.\n\nArgs:\n    intent (str | None): The identified user intent. Optional; if None, uses\n      context.state.\n    fetched_orders (bool | None): Whether orders have been fetched. Optional;\n      if None, uses context.state.\n    identified_order (bool | None): Whether an active order has been\n      identified. Optional; if None, uses context.state.\n\nReturns:\n    dict[str, Any]: Success status."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "update_orders_instruction"
+}

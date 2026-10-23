@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "classify_user_issue_as_software",
+    "pythonCode": "tools/classify_user_issue_as_software/python_function/python_code.py",
+    "description": "Classifies the user\u0027s issue as a software issue for internal reporting\npurposes. This is internal metadata. Execution of this tool should be treated\nas a silent background action; do not announce to the user that you are\nclassifying their issue or what the classification is.\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "classify_user_issue_as_software"
+}

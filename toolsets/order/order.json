@@ -1,0 +1,11 @@
+{
+  "displayName": "order",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/order/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "description": "Retrieves order information for all orders associated with a given phone number."
+}

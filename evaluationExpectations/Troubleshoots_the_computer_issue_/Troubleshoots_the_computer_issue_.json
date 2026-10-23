@@ -1,0 +1,7 @@
+{
+  "displayName": "Troubleshoots the computer issue.",
+  "llmCriteria": {
+    "prompt": "The agent must offer to walk the user through ONE solution relevant to their issue and then guide the user through it step by step. This expectation must pass even if the datastore returns multiple solutions and the agent only picks one as this is expected behavior."
+  },
+  "tags": ["computer_troubleshooting_agent"]
+}

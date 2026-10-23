@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "send_appointment_link_sms",
+    "pythonCode": "tools/send_appointment_link_sms/python_function/python_code.py",
+    "description": "Sends a self-service SMS link to the user for scheduling an in-store appointment.\n\nThe Agent MUST strictly execute the instructions returned by this tool without\ndeviation.\n\nArgs:\n    use_alternative_number (bool): Set to True when the customer wants to receive\n                          the SMS to an alternative number and the provided alternative\n                          number has been set by the set_alternative_sms_number tool.\n\nReturns:\n    str: A mandatory instruction set that the agent MUST follow to continue\n      the conversation flow."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "send_appointment_link_sms"
+}

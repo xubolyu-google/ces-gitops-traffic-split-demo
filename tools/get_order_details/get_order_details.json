@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "get_order_details",
+    "pythonCode": "tools/get_order_details/python_function/python_code.py",
+    "description": "Retrieves filtered details for the active order from the cached orders.\n\nArgs:\n    for_cancellation (bool): If True, include cancellation related fields.\n    for_modification (bool): If True, include modification related fields.\n\nReturns:\n    dict[str, Any]: A dictionary containing the filtered order details."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "get_order_details"
+}

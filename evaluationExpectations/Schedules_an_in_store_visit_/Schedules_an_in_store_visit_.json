@@ -1,0 +1,7 @@
+{
+  "displayName": "Schedules an in store visit.",
+  "llmCriteria": {
+    "prompt": "The agent must schedule help the user schedule an in store visit."
+  },
+  "tags": ["computer_troubleshooting_agent"]
+}

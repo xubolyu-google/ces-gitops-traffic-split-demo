@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "check_appointment_slots",
+    "pythonCode": "tools/check_appointment_slots/python_function/python_code.py",
+    "description": "Retrieves up to 10 available instore appointment slots according to the user\u0027s location and date preference.\n\n### PRE-REQUISITES:\n- You MUST have called `set_appointment_date_preference` and\n`set_appointment_location_preference` before calling this tool.\n\nArgs:\n  is_apple_device (bool): Set to True if the product brand is \u0027Apple\u0027 or the\n    product is an Apple-branded device (e.g., MacBook, iPad). For all\n    non-Apple devices (e.g., Windows, Microsoft, Dell) set this to False.\n\nReturns:\n  dict[str, Any]: A dictionary containing the store name, ID, and an array of\n  available ISO-8601 appointment timestamps, or an error message.\n\n  Success Schema:\n    - storeName (str): The display name of the store.\n    - storeId (str): The store identifier.\n    - slotTime (list[str]): List of available appointment slot timestamps in\n      the store\u0027s local timezone (e.g., \u00272026-03-07T11:20:00.000-05:00\u0027).\n      ISO-8601 format.\n\n  Failure Schema:\n    - agent_action (str): Explicit instructions that you, the AI agent, MUST\n      follow immediately and exactly as written to recover from the failure."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "check_appointment_slots"
+}

@@ -1,0 +1,4 @@
+{
+  "displayName": "global_directives",
+  "evaluations": ["steering_live_agent", "steering_national_spanish", "steering_regional_extension"]
+}

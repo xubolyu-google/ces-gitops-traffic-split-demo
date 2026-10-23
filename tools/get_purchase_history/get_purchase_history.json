@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "get_purchase_history",
+    "pythonCode": "tools/get_purchase_history/python_function/python_code.py",
+    "description": "Retrieves the latest 3 years of purchase history for the customer to look for a match on the product_type the customer is experiencing issues with.\n\nArgs:\n    product_type (str, optional): The high level type of product. Must be one\n      of the following exact strings:\n      - \"macbook\": Use for Apple laptops.\n      - \"chromebook\": Use for laptops running ChromeOS.\n      - \"computer\": Use for all other laptops (Windows/Linux) or desktops\n      - \"iPad\": Use for Apple tablets.\n      - \"tablet\": Use for all non-Apple tablets (e.g., Samsung Galaxy Tab,\n        Surface).\n      - \"printer\": Inkjet, laser, or multifunction printers.\n      - \"scanner\": Dedicated document scanners.\n      - \"fax\": Dedicated fax machines.\n      - \"hard drive\": External or internal storage devices (HDD/SSD).\n\nReturns:\n    dict (str, list): A dictionary of purchases keyed by manufacturer.\n      For each manufacturer, a list of dictionaries with a variety of info,\n      including the product name and item id which the agent will need."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "get_purchase_history"
+}

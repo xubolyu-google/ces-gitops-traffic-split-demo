@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: DCPI - Get Home Appointment Arrival Times
+  version: 1.0.0
+  description: Retrieves arrival information for multiple home appointments in a single request.
+
+servers:
+- url: $env_var
+  description: Webhook Server
+
+paths:
+  /home/appointments/arrival-times:
+    post:
+      summary: Retrieves arrival information for multiple home appointments
+      operationId: getArrivalTimes
+      parameters:
+      - name: appointmentIds
+        in: query
+        required: true
+        schema:
+          type: string
+        description: Comma-separated list of appointment IDs to retrieve arrival info for.
+      - $ref: '#/components/parameters/x-request-id'
+      - $ref: '#/components/parameters/x-session-id'
+      - $ref: '#/components/parameters/stsScope'
+      - $ref: '#/components/parameters/respPayloadTag'
+      responses:
+        '200':
+          description: Returns a map where each key is an appointment ID and the value is the corresponding arrival information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          arrivalTimeData:
+                            type: object
+                            additionalProperties:
+                              $ref: '#/components/schemas/ArrivalInfo'
+        '400':
+          description: Returned when the appointmentIds parameter is missing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '404':
+          description: Returned when ALL requested appointments are not found in the downstream system.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '500':
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+components:
+  parameters:
+    x-request-id:
+      in: header
+      name: x-request-id
+      required: true
+      schema:
+        type: string
+        description: Unique request id.
+
+    x-session-id:
+      in: header
+      name: x-session-id
+      required: true
+      schema:
+        type: string
+        description: conversation id.
+
+    stsScope:
+      name: x-sts-scope
+      in: header
+      required: true
+      description: "APID scope"
+      schema:
+        type: string
+        enum: ["apid-int-cloud:GET,POST,PUT:/gw/dcpi-scheduling/api/**"]
+        default: "apid-int-cloud:GET,POST,PUT:/gw/dcpi-scheduling/api/**"
+
+    respPayloadTag:
+      name: X-Resp-Payload-Tag
+      in: header
+      required: true
+      description: "A tag for the response payload that will be wrapped up in session parameters."
+      schema:
+        type: string
+        enum: ["arrivalTimeData"]
+        default: "arrivalTimeData"
+
+  schemas:
+    ErrorDto:
+      type: object
+      properties:
+        status:
+          type: string
+          description: HTTP status code with description.
+        error:
+          type: string
+          description: Detailed error message.
+
+    ArrivalInfo:
+      type: object
+      properties:
+        appointmentId:
+          type: string
+          description: Unique identifier for the appointment.
+        workOrderId:
+          type: string
+          description: Associated work order ID.
+        duration:
+          type: integer
+          description: Duration of the appointment in hours.
+        timeZone:
+          type: string
+          description: Time zone of the appointment (e.g., "Central Standard Time", "Eastern Standard Time").
+        arrivalWindowStartTime:
+          $ref: '#/components/schemas/TimeInfo'
+          description: Start of the arrival window.
+        arrivalWindowFinishTime:
+          $ref: '#/components/schemas/TimeInfo'
+          description: End of the arrival window.
+        customerCommunicatedETA:
+          $ref: '#/components/schemas/TimeInfo'
+          nullable: true
+          description: Estimated time of arrival communicated to customer (can be null).
+
+    TimeInfo:
+      type: object
+      properties:
+        day:
+          type: string
+          description: Day indicator. Possible values include TODAY, TOMORROW, SUNDAY, MONDAY, etc.
+        date:
+          type: string
+          description: Formatted date (e.g., "March 21").
+        time:
+          type: string
+          description: Formatted time in 12-hour format (e.g., "07:00 AM").
