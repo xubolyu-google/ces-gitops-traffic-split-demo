@@ -1,0 +1,170 @@
+openapi: 3.0.0
+info:
+  title: Service Context API
+  description: API to create and retrieve service context paths for a selected product from purchase history.
+  version: 1.0.0
+servers:
+  - url: $env_var
+    description: Web-hook base URL for the API
+
+paths:
+  /api/v1/gw-post/dcpi-orders/api/v2/serviceContext:
+    post:
+      operationId: createAndGetServiceContext
+      summary: Create and Retrieve service context for a purchased product
+      description: >
+        Takes product and order identifiers from purchase history along with
+        the customer's problem description and returns ranked service paths.
+      parameters:
+        - $ref: '#/components/parameters/reqPayloadTag'
+        - $ref: '#/components/parameters/respPayloadTag'
+        - $ref: '#/components/parameters/sessionId'
+        - $ref: '#/components/parameters/stsScope'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      type: object
+                      properties:
+                        request:
+                          $ref: '#/components/schemas/ServiceContextRequest'
+      responses:
+        "200":
+          description: Successfully retrieved service context paths.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          response:
+                            $ref: '#/components/schemas/ServiceContextResponse'
+        "400":
+          description: Bad request - missing or invalid parameters.
+        "500":
+          description: Internal server error.
+
+components:
+  parameters:
+    reqPayloadTag:
+      name: X-Req-Payload-Tag
+      in: header
+      required: true
+      description: Tag for the request payload.
+      schema:
+        type: string
+        enum: ["request"]
+        default: "request"
+    respPayloadTag:
+      name: X-Resp-Payload-Tag
+      in: header
+      required: true
+      description: Tag for the response payload.
+      schema:
+        type: string
+        enum: ["response"]
+        default: "response"
+    sessionId:
+      name: x-session-id
+      in: header
+      required: true
+      description: CallSid or ChatId to track the session.
+      schema:
+        type: string
+    stsScope:
+      name: x-sts-scope
+      in: header
+      required: true
+      description: APID scope for scheduling services.
+      schema:
+        type: string
+        enum: ["apid-int-cloud:GET,POST,PUT:/gw/dcpi-orders/api/v*/serviceContext/**"]
+        default: "apid-int-cloud:GET,POST,PUT:/gw/dcpi-orders/api/v*/serviceContext/**"
+      
+
+  schemas:
+    ServiceContextRequest:
+      properties:
+        orderNumber:
+          type: string
+          example: "BBY01-806282773861"
+        problemDescription:
+          type: string
+          example: "My computer screen is cracked"
+        channel:
+          type: string
+          example: "IVR"
+        productCategory:
+          type: string
+          example: "computer"
+        sku:
+          type: string
+          example: "4881200"
+        itemId:
+          type: string
+          example: "2025032709064147653651"
+        fourPartKey:
+          type: string
+          example: "960^20250328^960^857"
+        sequenceNumber:
+          type: string
+          example: "1"  
+        partyId:
+          type: string
+          example: "5006430393"
+        brand:
+          type: string
+          example: "Apple"
+        intentId:
+          type: string
+          example: "troubleshooting.hardware"    
+
+    ServiceContextResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/ServicePath'
+
+    ServicePath:
+      type: object
+      properties:
+        serviceContextNumber:
+          type: string
+          example: "AS-3509fc09-75bc-4a61-acfa-e71fd2d70af2"
+        link:
+          type: string
+          format: uri
+          example: "https://www.test.bestbuy.com/gateway/adaptive-support-router/route?serviceContextNumber=AS-3509fc09-75bc-4a61-acfa-e71fd2d70af2&pathNumber=35f19cf5-0405-4cd1-ab77-a3d49c64cbdc"
+        ranking:
+          type: integer
+          example: 1
+        type:
+          type: string
+          example: "Dotcom_SelfService_ServiceTriage"
+        status:
+          $ref: '#/components/schemas/ServicePathStatus'
+        number:
+          type: string
+          example: "35f19cf5-0405-4cd1-ab77-a3d49c64cbdc"
+
+    ServicePathStatus:
+      type: object
+      properties:
+        state:
+          type: string
+          example: "AVAILABLE"
+        updated:
+          type: string
+          format: date-time
+          example: "2026-01-23T07:30:53"

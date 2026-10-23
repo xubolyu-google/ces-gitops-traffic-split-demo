@@ -1,0 +1,273 @@
+openapi: 3.0.0
+info:
+  title: LMI APIs
+  version: v1
+  description: APIs for retrieving LMI Pin and LMI Status by call ID.
+
+servers:
+# Base path for APID/Webhook URLs, as seen in the documentation
+- url: $env_var
+  description: Web-hook base URL for the API
+paths:
+  /pin:
+    post:
+      tags:
+      - LMI Pin
+      summary: Retrieve LMI Pin
+      description: This API allows users to retrieve an LMI Pin by its call id.
+      operationId: getLmiPin
+      parameters:
+      - $ref: '#/components/parameters/x-request-id'
+      - $ref: '#/components/parameters/x-session-id'
+      - $ref: '#/components/parameters/stsScope'
+      - $ref: '#/components/parameters/reqPayloadTag'
+      - $ref: '#/components/parameters/respPayloadTag'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      type: object
+                      properties:
+                        lmiRequest:
+                          $ref: '#/components/schemas/LmiPinRequest'
+      responses:
+        '200':
+          description: Successfully fetched PIN for callID.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          lmiResponse:
+                            $ref: '#/components/schemas/LmiPinResponse'
+        '400':
+          description: Invalid callID or missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '404':
+          description: The specified callID does not exist.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '500':
+          description: Unexpected error occurred while processing the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '503':
+          description: The service is temporarily unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+  /status:
+    post:
+      tags:
+      - LMI Status
+      summary: Retrieve LMI Status
+      description: This API allows users to retrieve an LMI status by its call
+        id. It has multiple status codes based on different states of the
+        session.
+      operationId: getLmiStatus
+      parameters:
+      - $ref: '#/components/parameters/x-request-id'
+      - $ref: '#/components/parameters/x-session-id'
+      - $ref: '#/components/parameters/stsScope'
+      - $ref: '#/components/parameters/reqPayloadTag'
+      - $ref: '#/components/parameters/respPayloadTag'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      type: object
+                      properties:
+                        lmiRequest:
+                          $ref: '#/components/schemas/LmiStatusRequest'
+      responses:
+        '200':
+          description: Successfully fetched PIN for callID (Returns
+            LMISessionDto).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          lmiResponse:
+                            $ref: '#/components/schemas/LMISessionDto'
+        '400':
+          description: Invalid callID or missing parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '404':
+          description: The specified callID does not exist. This will be 404
+            until SecurityCodeValidated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '500':
+          description: Unexpected error occurred while processing the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '503':
+          description: The service is temporarily unavailable.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+
+components:
+  parameters:
+    x-request-id:
+      in: header
+      name: x-request-id
+      required: true
+      schema:
+        type: string
+        description: Unique request id.
+
+    x-session-id:
+      in: header
+      name: x-session-id
+      required: true
+      schema:
+        type: string
+        description: conversation id.
+
+    stsScope:
+      name: x-sts-scope
+      in: header
+      required: true
+      description: "APID scope"
+      schema:
+        type: string
+        enum: ["apid-int-cloud:GET,POST,PUT:/gw/dcpi-nexus/**"]
+        default: "apid-int-cloud:GET,POST,PUT:/gw/dcpi-nexus/**"
+
+    reqPayloadTag:
+      name: X-Req-Payload-Tag
+      in: header
+      required: true
+      description: "A tag for the request payload that needs to be extracted from
+        session parameters and send it to downstream api."
+      schema:
+        type: string
+        enum: ["lmiRequest"]
+        default: "lmiRequest"
+
+    respPayloadTag:
+      name: X-Resp-Payload-Tag
+      in: header
+      required: true
+      description: "A tag for the response payload that will be wrapped up in session
+        parameters."
+      schema:
+        type: string
+        enum: ["lmiResponse"]
+        default: "lmiResponse"
+
+  schemas:
+    ErrorDto:
+      type: object
+      description: Schema for all error responses.
+      properties:
+        status:
+          type: string
+          description: HTTP status code with description.
+          example: "500 Internal Server Error"
+        error:
+          type: string
+          description: Detailed error message.
+          example: "Error details here"
+
+    LmiPinRequest:
+      type: object
+      description: Request body for Get LMI Pin API.
+      required:
+      - callID
+      properties:
+        callID:
+          type: string
+          description: Best Buy Call ID
+          example: "0a296841_00002995_56095661_00dd_0001"
+
+    LmiPinResponse:
+      type: object
+      description: Successful response body for Get LMI Pin API.
+      properties:
+        pin:
+          type: integer
+          description: The LMI Pin.
+          example: 885029
+
+    LmiStatusRequest:
+      type: object
+      description: Request body for Get LMI Status API.
+      required:
+      - callID
+      properties:
+        callID:
+          type: string
+          description: Best Buy Call ID
+          example: "0a296841_00002995_56095661_00dd_0001"
+
+    LMISessionDto:
+      type: object
+      description: Successful response body for Get LMI Status API.
+      properties:
+        Browser:
+          type: string
+          description: Client Browser name.
+          example: "Chrome"
+        Status:
+          type: string
+          description: Lmi session status.
+          enum:
+          - SecurityCodeValidated  # when user uses it to start downloading
+          - TermsAndConditionsAccepted  # when customer accepted Terms and conditions
+          - TermsAndConditionsDeclined  # If user declines terms and conditions
+          - DownloadStarted  # After user accepted terms and conditions
+          - DownloadCompleted  # When downloading of lmi software is complete
+          - SessionCreated  # When user opens the lmi software that was downloaded and joins the session
+          - SessionNotCreated  # If user doesn't opens and joins the lmi session in some time.
+          - BrowserClosed  # when user closes the browser at any time after SecurityCodeValidated
+          example: "SecurityCodeValidated"
+        ID:
+          type: string
+          description: LMI session ID.
+          example: "1172394427"  

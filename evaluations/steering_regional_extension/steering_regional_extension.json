@@ -1,0 +1,383 @@
+{
+  "displayName": "steering_regional_extension",
+  "tags": ["steering", "global_directives"],
+  "golden": {
+    "turns": [{
+      "steps": [{
+        "userInput": {
+          "variables": {
+            "mock_ani_denylist_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "isANIDenyListed": "false"
+                }
+              }
+            },
+            "mock_ani_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "appointmentDate": "None",
+                  "email": "ALICE.SMITH@EXAMPLE.COM",
+                  "firstName": "ALICE",
+                  "isProactive": {
+                    "isExpiredCard": false,
+                    "isFailedAuthMembership": false,
+                    "isInstoreAppt": false,
+                    "isOpenRepairs": false,
+                    "isOrderInstallDelivery": false,
+                    "isOrderOpen15D": false,
+                    "isOrderReadyForPickUp": false,
+                    "isOrdersOpen": false,
+                    "isRepairAppointment": false,
+                    "isTTSContract": false
+                  },
+                  "lastName": "SMITH",
+                  "membership": "",
+                  "open_orders_count_15d": 1.0,
+                  "orders": {
+                  },
+                  "partyID": [],
+                  "with_ani_lookup": true,
+                  "zipCode": "10001"
+                }
+              }
+            },
+            "mock_get_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "data": {
+                      "entryPointNumber": "4087388680",
+                      "phoneNumber": "1112223333",
+                      "source": "IVR",
+                      "sourceType": "SIP"
+                    }
+                  }
+                }
+              }
+            },
+            "mock_set_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "contextKey": "session_id"
+                  }
+                }
+              }
+            },
+            "mock_store_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "display_name": "El Camino Real",
+                  "hotline": "retail",
+                  "store_id": "685",
+                  "store_id4": "0685"
+                }
+              }
+            }
+          }
+        }
+      }, {
+        "userInput": {
+          "event": {
+            "event": "welcome"
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "DISABLED_BARGE_IN"
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "DISCLAIMER"
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-5b9cf87a-8a45-43f4-9708-da16921ecb6b",
+            "tool": "get_call_context",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-5b9cf87a-8a45-43f4-9708-da16921ecb6b",
+            "tool": "get_call_context",
+            "response": {
+              "result": {
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-b56edccc-5a98-4a44-94c3-b46d8c1be700",
+            "tool": "fetch_init_json",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-b56edccc-5a98-4a44-94c3-b46d8c1be700",
+            "tool": "fetch_init_json",
+            "response": {
+              "result": ""
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "call_context": {
+              "entryPointNumber": "4087388680",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP"
+            },
+            "customer_phone_number": "1112223333",
+            "dfcx_params": {
+              "entryPointNumber": "4087388680",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP"
+            },
+            "entry_point_phone_number": "4087388680",
+            "fetch_init_json_failure": "response: {\u0027status\u0027: \u0027error\u0027, \u0027errorCode\u0027: \u0027NOT_FOUND\u0027}"
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-c243127f-2006-4a48-811a-6c4db7854772",
+            "tool": "store_lookup",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-c243127f-2006-4a48-811a-6c4db7854772",
+            "tool": "store_lookup",
+            "response": {
+              "result": {
+                "display_name": null,
+                "store_id": null
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "call_context": {
+              "entryPointNumber": "4087388680",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP",
+              "storeID": "N/A"
+            },
+            "dfcx_params": {
+              "display_name": "N/A",
+              "entryPointNumber": "4087388680",
+              "hotline": "888",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP",
+              "storeID": "N/A",
+              "store_id": "N/A",
+              "store_id4": "N/A"
+            },
+            "mock_store_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "display_name": null,
+                  "hotline": "888",
+                  "store_id": null,
+                  "store_id4": "N/A"
+                }
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "PROACTIVE",
+            "mock_store_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "hotline": "888",
+                  "store_id4": "N/A"
+                }
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "Welcome to Best Buy El Camino Real. You\u0027re interacting with a virtual assistant that\u0027ll use AI to help you. I\u0027m still learning, so I may not get everything right. For quality assurance, your call may be recorded. By continuing, you accept the terms of use and privacy policy on BestBuy.com."
+            }]
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-d2d99a20-d0cd-4ca9-826b-656f97bb7ef4",
+            "tool": "ani_lookup",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-d2d99a20-d0cd-4ca9-826b-656f97bb7ef4",
+            "tool": "ani_lookup",
+            "response": {
+              "result": {
+                "email": "ALICE.SMITH@EXAMPLE.COM",
+                "firstName": "ALICE",
+                "lastName": "SMITH",
+                "zipCode": "10001"
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "call_context": {
+              "appointmentDate": "None",
+              "entryPointNumber": "4087388680",
+              "partyID": "5001112222",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP",
+              "storeID": "N/A",
+              "zipCode": "10001"
+            },
+            "dfcx_params": {
+              "appointmentDate": "None",
+              "display_name": "N/A",
+              "email": "ALICE.SMITH@EXAMPLE.COM",
+              "entryPointNumber": "4087388680",
+              "firstName": "ALICE",
+              "hotline": "888",
+              "isProactive": {
+                "isExpiredCard": false,
+                "isFailedAuthMembership": false,
+                "isInstoreAppt": false,
+                "isOpenRepairs": false,
+                "isOrderInstallDelivery": false,
+                "isOrderOpen15D": false,
+                "isOrderReadyForPickUp": false,
+                "isOrdersOpen": false,
+                "isRepairAppointment": false,
+                "isTTSContract": false
+              },
+              "lastName": "SMITH",
+              "membership": "Total",
+              "open_orders_count_15d": 1.0,
+              "orders": {
+              },
+              "partyID": ["5001112222"],
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP",
+              "storeID": "N/A",
+              "store_id": "N/A",
+              "store_id4": "N/A",
+              "with_ani_lookup": true,
+              "zipCode": "10001"
+            },
+            "email": "ALICE.SMITH@EXAMPLE.COM",
+            "first_name": "ALICE",
+            "last_name": "SMITH",
+            "membership": "Total",
+            "party_ids": ["5001112222"]
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "DONE"
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "If you have an extension, please say \u0027extension\u0027."
+            }]
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "Now, what can I help you with?"
+            }]
+          }
+        }
+      }]
+    }, {
+      "steps": [{
+        "userInput": {
+          "text": "Extension"
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "c0d80c89-d436-43cc-8bf8-d13f125b4914",
+            "tool": "connect_to_extension_queue",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "c0d80c89-d436-43cc-8bf8-d13f125b4914",
+            "tool": "connect_to_extension_queue",
+            "response": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "925c34ea-ff6b-453a-befb-701824eac405",
+            "tool": "end_session",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "925c34ea-ff6b-453a-befb-701824eac405",
+            "tool": "end_session",
+            "response": {
+            }
+          }
+        }
+      }]
+    }],
+    "evaluationExpectations": ["no_membership"]
+  }
+}

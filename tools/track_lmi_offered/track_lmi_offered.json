@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "track_lmi_offered",
+    "pythonCode": "tools/track_lmi_offered/python_function/python_code.py",
+    "description": "Tracks that the LMI remote support option was presented to the customer.\n\nSets the lmi_offered flag in session state so that downstream analytics\ncan determine whether the customer was offered LMI regardless of whether\nthey accepted or declined.\n\nReturns:\n    str: Confirmation that the flag was set."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "track_lmi_offered"
+}

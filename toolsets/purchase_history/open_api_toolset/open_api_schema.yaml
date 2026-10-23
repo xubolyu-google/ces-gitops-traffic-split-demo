@@ -1,0 +1,207 @@
+openapi: 3.0.0
+info:
+  title: Get Purchase History API
+  version: v1
+  description: API to retrieve order information for a given party id and
+    keywords.
+servers:
+- url: $env_var
+  description: Web-hook base URL for the API
+
+paths:
+  /api/v1/gw-post/dcpi-orders/api/v1/orders/purchases:
+    post:
+      summary: Get Purchase History By PartyId and keywords
+      operationId: getPurchaseHistory
+      description: This API will retrieve order information for a given party
+        id; if product-name is Cell_Phones, the API will fetch purchase history
+        for 5 years.
+      parameters:
+      - name: product-name
+        in: query
+        required: true
+        description: The product name that needs to be searched (e.g., macbook,
+          laptop).
+        schema:
+          type: string
+      - name: size
+        in: query
+        required: false
+        description: Size of the product (e.g., >=100, <=50).
+        schema:
+          type: string
+      - name: exclude
+        in: query
+        required: false
+        description: Products to exclude from results.
+        schema:
+          type: string
+      - name: noOfYears
+        in: query
+        required: false
+        description: Number of years to look into.
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/requestId'
+      - $ref: '#/components/parameters/stsScope'
+      - $ref: '#/components/parameters/reqPayloadTag'
+      - $ref: '#/components/parameters/respPayloadTag'
+      requestBody:
+        description: Request body containing the party identification.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      type: object
+                      properties:
+                        request:
+                          $ref: '#/components/schemas/PurchaseHistoryRequest'
+      responses:
+        '200':
+          description: Successfully fetched purchase history.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          response:
+                            $ref: '#/components/schemas/PurchaseHistoryResponse'
+        '400':
+          description: Invalid parameters or missing required fields.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorDto'
+        '404':
+          description: The specified party ID or order does not exist.
+        '500':
+          description: Unexpected internal server error.
+        '503':
+          description: Service temporarily unavailable.
+
+components:
+  parameters:
+    requestId:
+      name: X-REQUEST-ID
+      in: header
+      required: true
+      description: Identifier to track individual requests to this API.
+      schema:
+        type: string
+        example: "xrequest::1683824829::92.123.182.30::c1442bc::468862"
+    reqPayloadTag:
+      name: X-Req-Payload-Tag
+      in: header
+      required: true
+      description: Tag for the request payload.
+      schema:
+        type: string
+        enum: ["request"]
+        default: "request"
+    respPayloadTag:
+      name: X-Resp-Payload-Tag
+      in: header
+      required: true
+      description: Tag for the response payload.
+      schema:
+        type: string
+        enum: ["response"]
+        default: "response"
+    sessionId:
+      name: x-session-id
+      in: header
+      required: true
+      description: CallSid or ChatId to track the session.
+      schema:
+        type: string
+    stsScope:
+      name: x-sts-scope
+      in: header
+      required: true
+      description: APID scope for scheduling services.
+      schema:
+        type: string
+        enum: ["apid-int-cloud:GET,POST:/gw/dcpi-orders/api/v*/orders/**"]
+        default: "apid-int-cloud:GET,POST:/gw/dcpi-orders/api/v*/orders/**"
+
+  schemas:
+    PurchaseHistoryRequest:
+      type: object
+      required:
+      - partyId
+      properties:
+        partyId:
+          type: string
+          description: "The party ID to search for purchase history"
+        membership:
+          type: string
+          description: "The membership (Total/Plus) to identify return eligibility"
+
+    PurchaseHistoryResponse:
+      type: object
+      properties:
+        purchases:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              $ref: '#/components/schemas/PurchaseItem'
+          description: Map of brand names to their respective purchase history
+            items.
+
+    PurchaseItem:
+      type: object
+      properties:
+        orderNumber:
+          type: string
+        skuId:
+          type: string
+        productName:
+          type: string
+        purchaseDate:
+          type: string
+        productType:
+          type: string
+        primaryImageUrl:
+          type: string
+          format: uri
+        whatItIs:
+          type: array
+          items:
+            type: string
+        isUnderManufacturerWarranty:
+          type: boolean
+        coverageStartDate:
+          type: string
+        isCoveredByProtectionPlan:
+          type: boolean
+        isReturnEligible:
+          type: boolean
+        fourPartKey:
+          type: string
+        brand:
+          type: string
+        itemId:
+          type: string
+        sequenceNumber:
+          type: string
+
+    ErrorDto:
+      type: object
+      properties:
+        status:
+          type: string
+        error:
+          type: string

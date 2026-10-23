@@ -1,0 +1,12 @@
+{
+  "displayName": "purchase_history",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/purchase_history/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "Retrieve order information for a given party ID, optionally filtered by product name and time frame."
+}

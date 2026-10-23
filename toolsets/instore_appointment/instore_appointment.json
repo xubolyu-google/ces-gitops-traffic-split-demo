@@ -1,0 +1,12 @@
+{
+  "displayName": "instore_appointment",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/instore_appointment/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "API to retrieve available appointment slots and schedule appointments for in-store services."
+}

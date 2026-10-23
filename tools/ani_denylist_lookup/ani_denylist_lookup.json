@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "ani_denylist_lookup",
+    "pythonCode": "tools/ani_denylist_lookup/python_function/python_code.py",
+    "description": "Checks if the customer\u0027s phone number(ANI - Automatic Number Identification) is present in the denylist.\n\nReturns:\n  dict[str, Any]: A dictionary containing ANI denylist result.\n  Schema:\n      - isANIDenyListed (bool): Indicates if the ANI is in the denylsit."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "ani_denylist_lookup"
+}

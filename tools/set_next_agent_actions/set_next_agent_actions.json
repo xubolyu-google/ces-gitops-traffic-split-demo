@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_next_agent_actions",
+    "pythonCode": "tools/set_next_agent_actions/python_function/python_code.py",
+    "description": "Override the next agent actions, bypassing LLM."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_next_agent_actions"
+}

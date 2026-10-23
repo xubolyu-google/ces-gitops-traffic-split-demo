@@ -1,0 +1,12 @@
+{
+  "displayName": "home_appointment",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/home_appointment/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "Retrieves arrival information for multiple home appointments in a single request."
+}

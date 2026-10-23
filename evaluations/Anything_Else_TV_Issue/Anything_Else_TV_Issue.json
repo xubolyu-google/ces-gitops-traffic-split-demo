@@ -1,0 +1,43 @@
+{
+  "displayName": "Anything Else TV Issue",
+  "scenario": {
+    "task": "State device picture issue.",
+    "scenarioExpectations": [{
+      "toolExpectation": {
+        "expectedToolCall": {
+          "tool": "connect_to_dfcx_agent",
+          "args": {
+            "user_query": {
+              "$matchType": "ignore",
+              "$matchValue": "",
+              "$originalValue": "The picture on my TV is bad"
+            }
+          },
+          "displayName": "connect_to_dfcx_agent"
+        },
+        "mockToolResponse": {
+          "tool": "connect_to_dfcx_agent",
+          "response": {
+            "result": ""
+          },
+          "displayName": "connect_to_dfcx_agent"
+        }
+      }
+    }],
+    "userFacts": [{
+      "name": "device_type",
+      "value": "TV"
+    }, {
+      "name": "issue",
+      "value": "picture is bad"
+    }, {
+      "name": "current_date",
+      "value": "2026-04-15"
+    }],
+    "maxTurns": 10,
+    "variableOverrides": {
+      "current_date": "2026-04-15[America/Los_Angeles]"
+    },
+    "userGoalBehavior": "USER_GOAL_SATISFIED"
+  }
+}

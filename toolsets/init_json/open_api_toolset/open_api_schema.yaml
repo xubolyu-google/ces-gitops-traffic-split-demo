@@ -1,0 +1,57 @@
+openapi: 3.0.3
+info:
+  title: fetch_init_json Webhook API
+  version: v1
+  description: Fetch the initialize parameters for emergency messages and DFCX transfer.
+servers:
+  - url: $env_var
+
+paths:
+  /:
+    post:
+      operationId: fetchInitJson
+      summary: Call fetch_init_json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - fulfillmentInfo
+                - sessionInfo
+              properties:
+                sessionInfo:
+                  type: object
+                  required:
+                    - parameters
+                  properties:
+                    parameters:
+                      type: object
+                      additionalProperties: true
+                    session:
+                      type: string
+                      example: "projects/bbyus-ana-ccai-care-d01/locations/us-central1/agents/245f05ad-ed15-454e-b8bb-38109ac59a42/sessions/session_id"
+                fulfillmentInfo:
+                  type: object
+                  required:
+                    - tag
+                  properties:
+                    tag:
+                      type: string
+                      enum: ["fetch_init_json"]
+                      default: fetch_init_json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        "400":
+          description: Bad request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Server error

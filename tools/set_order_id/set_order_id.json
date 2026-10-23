@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_order_id",
+    "pythonCode": "tools/set_order_id/python_function/python_code.py",
+    "description": "Validates and sets the order_id in session state.\n\nArgs:\n    order_id (str): The ID of the order.\n\nReturns:\n    dict[str, Any]: Success status."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_order_id"
+}

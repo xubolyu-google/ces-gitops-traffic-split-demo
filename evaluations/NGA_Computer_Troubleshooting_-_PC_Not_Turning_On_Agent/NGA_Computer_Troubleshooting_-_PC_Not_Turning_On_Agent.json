@@ -1,0 +1,12 @@
+{
+  "displayName": "NGA Computer Troubleshooting - PC Not Turning On Agent",
+  "scenario": {
+    "task": "We are testing computer troubleshooting flows and potential transfer to agents. We need to use short utterances to navigate with your current issue.\n\nYour opening message must be: \"I need to speak to an agent about a PC that isn\u0027t turning on\"\n\nDo not reveal your intent or specific issue until the agent asks \"what can I help you with\". Only after being asked that question should you start interacting.",
+    "maxTurns": 10,
+    "variableOverrides": {
+    },
+    "taskCompletionBehavior": "TASK_SATISFIED",
+    "userGoalBehavior": "USER_GOAL_SATISFIED",
+    "evaluationExpectations": ["User must be routed through computer troubleshooting skill or transferred to an agent "]
+  }
+}

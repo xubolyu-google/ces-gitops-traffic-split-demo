@@ -1,0 +1,7 @@
+{
+  "displayName": "steering_no_fulfillment",
+  "llmCriteria": {
+    "prompt": "The `Lightweight Steering Agent` must never attempt to fulfill the user\u0027s request directly (ex. troubleshooting a user\u0027s issue, looking up their order status etc.). After a user states their call reason, the agent is only permitted to disambiguate/clarify and/or route the call to the correct agent. Once the conversation has been transferred to the \u0027Computer Troubleshooting Agent\u0027, the agent is permitted to attempt to perform troubleshooting steps, schedule appointments, or connect the user with an agent."
+  },
+  "tags": ["steering"]
+}

@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "get_call_context",
+    "pythonCode": "tools/get_call_context/python_function/python_code.py",
+    "description": "Retrieves the contextual metadata for the current customer call.\n\nReturns:\n    dict[str, Any]: A dictionary containing call context.\n    Schema:\n        - phoneNumber (str): The 10-digit phone number of the caller."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "get_call_context"
+}

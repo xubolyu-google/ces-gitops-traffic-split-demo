@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "store_lookup",
+    "pythonCode": "tools/store_lookup/python_function/python_code.py",
+    "description": "Performs a store lookup based on an entry point phone number.\n\nReturns:\n  dict[str, Any]: A dictionary containing store details.\n  Schema:\n      - display_name (str): The display name of the store.\n      - store_id (str): The store identifier."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "store_lookup"
+}

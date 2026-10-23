@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "ani_lookup",
+    "pythonCode": "tools/ani_lookup/python_function/python_code.py",
+    "description": "Performs an ANI (Automatic Number Identification) lookup using the customer phone number to retrieve customer and order-related metadata.\n\nReturns:\n  dict[str, Any]: A dictionary containing ANI details.\n  Schema:\n      - zipCode (str): Customer\u0027s zip code.\n      - firstName (str): Customer\u0027s first name.\n      - lastName (str): Customer\u0027s last name.\n      - email (str): Customer\u0027s email address."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "ani_lookup"
+}

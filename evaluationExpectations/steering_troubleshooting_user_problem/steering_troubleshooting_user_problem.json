@@ -1,0 +1,7 @@
+{
+  "displayName": "steering_troubleshooting_user_problem",
+  "llmCriteria": {
+    "prompt": "The agent must call the `route_computer_troubleshooting_intent` tool with a `user_problem` parameter set to something that reasonably captures the user\u0027s problem"
+  },
+  "tags": ["steering"]
+}

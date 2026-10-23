@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "connect_to_order_management_live_agent",
+    "pythonCode": "tools/connect_to_order_management_live_agent/python_function/python_code.py",
+    "description": "Connects the user to an order management live agent.\n\nDetermines the correct queue based on membership and specific issue\nconditions."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "connect_to_order_management_live_agent"
+}

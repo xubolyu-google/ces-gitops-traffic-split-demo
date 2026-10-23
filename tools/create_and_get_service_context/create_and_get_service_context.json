@@ -1,0 +1,13 @@
+{
+  "pythonFunction": {
+    "name": "create_and_get_service_context",
+    "pythonCode": "tools/create_and_get_service_context/python_function/python_code.py",
+    "description": "Creates and retrieves service context for a specific product selected by the customer from their purchase history.\n\nThis must be called when entering the Determine_Service_Entitlement subtask.\nThe channel is automatically derived from the \u0027source\u0027 field in dfcx_params.   \n\nReturns:\n    dict[str, Any]: A list of service context paths ranked by priority.\n\n    Success Schema (list of service paths):\n        - serviceContextNumber (str): Unique identifier for the service context.\n        - link (str): URL to the adaptive support router.\n        - ranking (int): Priority ranking of this service path.\n        - type (str): The type of service path. Used to determine entitlement:\n          - If any path has status.state \u003d \"AVAILABLE\", user is entitled.\n          - If no paths are available and any path type includes \"PaidSupport\",\n            offer_paid_support \u003d True.\n        - status (dict): Contains state and updated fields.\n        - number (str): Unique path number identifier.\n\n    Failure Schema:\n        - agent_action (str): Explicit instructions that you, the AI agent, MUST\n          follow immediately and exactly as written to recover from the failure."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "create_and_get_service_context",
+  "toolFakeConfig": {
+    "codeBlock": {
+    }
+  }
+}

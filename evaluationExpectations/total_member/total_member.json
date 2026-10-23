@@ -1,0 +1,7 @@
+{
+  "displayName": "total_member",
+  "llmCriteria": {
+    "prompt": "The agent must thank the user for being a My Best Buy Total member."
+  },
+  "tags": ["steering"]
+}

@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "play_proactive_sms_scheduling_offer",
+    "pythonCode": "tools/play_proactive_sms_scheduling_offer/python_function/python_code.py",
+    "description": "Play the proactive one-time text offer for an appointment scheduling link that a user needs to explicitly consent to."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "play_proactive_sms_scheduling_offer"
+}

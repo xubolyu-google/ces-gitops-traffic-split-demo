@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "connect_to_dfcx_agent",
+    "pythonCode": "tools/connect_to_dfcx_agent/python_function/python_code.py",
+    "description": "Connects the user to a virtual Dialogflow agent.\n\nArgs:\n    user_query (str): A precise, first-person summary of the user\u0027s intent (e.g., \"I want to...\", \"I need help with...\").\n      - MUST include any specific entities mentioned (subscription types, product names, etc.).\n      - Rephrase for clarity: Convert fragmented conversation history into a single, coherent statement of intent.\n      - DO NOT include conversational filler like \"Hello\" or \"The user said.\"\n      - Example: \"I want to buy an iPhone 17 Pro Max.\"\n    is_proactive_routing (bool): Flag indicating if the transfer was triggered by the agent\u0027s initial proactive prompt.\n      - MUST be set to True only if the transfer is related to the agent\u0027s proactive question (e.g. \"I see you have an upcoming in-home service appointment. Is that why you\u0027re calling?\") at the beginning of the conversation.\n\nReturns:\n    Optional[str]: A reclassification instruction when reclassification is enabled\n    and a computing-device query is matched; otherwise None."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "connect_to_dfcx_agent"
+}

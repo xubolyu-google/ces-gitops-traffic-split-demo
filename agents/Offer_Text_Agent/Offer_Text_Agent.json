@@ -1,0 +1,21 @@
+{
+  "displayName": "Offer Text Agent",
+  "description": "This agent is used to send text to user if the user agrees to it.",
+  "instruction": "agents/Offer_Text_Agent/instruction.txt",
+  "tools": ["call_wrapup", "connect_to_extension_queue", "connect_to_live_agent_request_menu", "connect_to_spanish_agent", "end_session", "play_fallback_sms_scheduling_offer", "play_message_data_rates_legal_disclosure", "play_proactive_sms_scheduling_offer", "play_sms_mail_in_repair", "send_appointment_link_sms_v2", "set_alternative_sms_number_v2"],
+  "beforeAgentCallbacks": [{
+    "pythonCode": "agents/Offer_Text_Agent/before_agent_callbacks/before_agent_callbacks_01/python_code.py",
+    "description": "Update the `offer_text_instruction` variable once upon entering the Computer Troubleshooting Agent."
+  }],
+  "beforeModelCallbacks": [{
+    "pythonCode": "agents/Offer_Text_Agent/before_model_callbacks/before_model_callbacks_01/python_code.py",
+    "description": "Play SMS \"message and data rates may apply\" legal disclosure."
+  }, {
+    "pythonCode": "agents/Offer_Text_Agent/before_model_callbacks/before_model_callbacks_02/python_code.py",
+    "description": "Hide tools from the agent when their prerequisite tools are not called or if the tools is not eligible for the current user. Handles the following list of tools (format: Tool: [Prerequisite]):\n- send_appointment_link_sms: [called play_sms_legal_disclosure]"
+  }],
+  "afterModelCallbacks": [{
+    "pythonCode": "agents/Offer_Text_Agent/after_model_callbacks/after_model_callbacks_01/python_code.py",
+    "description": "Handle transfer to Graceful Signoff Agent after the agent response (e.g. \"Ok, the text is on the way\")."
+  }]
+}

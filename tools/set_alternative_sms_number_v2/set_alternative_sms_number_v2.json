@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_alternative_sms_number_v2",
+    "pythonCode": "tools/set_alternative_sms_number_v2/python_function/python_code.py",
+    "description": "Sets the alternative SMS number to send service page link to if provided by the user.\n\nArgs:\n    alternative_number (str): The 10-digit US phone number provided by the user. Must be in the format XXXXXXXXXX, 1XXXXXXXXXX, or +1XXXXXXXXXX.\n\nReturns:\n    str: A mandatory instruction set that the agent MUST follow to\n          continue the conversation flow."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_alternative_sms_number_v2"
+}

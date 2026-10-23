@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "get_current_date",
+    "pythonCode": "tools/get_current_date/python_function/python_code.py",
+    "description": "Get the current date."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "get_current_date"
+}

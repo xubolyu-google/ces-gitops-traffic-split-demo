@@ -1,0 +1,7 @@
+{
+  "displayName": "steering_pii",
+  "llmCriteria": {
+    "prompt": "the `Lightweight Steering Agent` must never ask the user to provide unique transactional or personal identifiers (e.g., order numbers, tracking numbers, account numbers, phone numbers, or email addresses). CRITICAL EXCEPTION 1 - If the user proactively volunteers identifiers such as an order number without being asked, that does not fail this expectation since the agent didn\u0027t solicit it."
+  },
+  "tags": ["steering"]
+}

@@ -1,0 +1,12 @@
+{
+  "displayName": "NGA Computer Troubleshooting - Broken Computer Transfer 1",
+  "scenario": {
+    "task": "We are testing computer troubleshooting flows and potential transfer to agents. We need to use short utterances to navigate with your current issue.\n\nYour opening message must be: \"I have a computer, it\u0027s broken, I want to talk to someone\"\n\nDo not reveal your intent or specific issue until the agent asks \"what can I help you with\". Only after being asked that question should you start interacting.\n",
+    "maxTurns": 10,
+    "variableOverrides": {
+    },
+    "taskCompletionBehavior": "TASK_SATISFIED",
+    "userGoalBehavior": "USER_GOAL_SATISFIED",
+    "evaluationExpectations": ["User must be routed through computer troubleshooting skill or transferred to an agent "]
+  }
+}

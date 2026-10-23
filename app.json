@@ -1,0 +1,819 @@
+{
+  "displayName": "bestbuy_agent_autopush",
+  "rootAgent": "Lightweight Steering",
+  "audioProcessingConfig": {
+    "synthesizeSpeechConfigs": {
+      "en-US": {
+        "voice": "en-US-Chirp3-HD-Aoede"
+      }
+    },
+    "bargeInConfig": {
+      "bargeInAwareness": true
+    },
+    "inactivityTimeout": "20s",
+    "ambientSoundConfig": {
+    }
+  },
+  "loggingSettings": {
+    "redactionConfig": {
+    },
+    "audioRecordingConfig": {
+    },
+    "bigqueryExportSettings": {
+      "enabled": true,
+      "project": "$env_var",
+      "dataset": "$env_var"
+    },
+    "cloudLoggingSettings": {
+      "enableCloudLogging": true
+    },
+    "conversationLoggingSettings": {
+      "retentionWindow": "31536000s"
+    },
+    "evaluationAudioRecordingConfig": {
+    },
+    "metricAnalysisSettings": {
+    }
+  },
+  "guardrails": ["Safety Guardrail 1764637688967", "Prompt Guardrail 1764637691227"],
+  "modelSettings": {
+    "model": "gemini-3.1-flash-live"
+  },
+  "variableDeclarations": [{
+    "name": "alternative_sms_number",
+    "description": "Alternative SMS number provided by the user.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "ani_denylist_lookup_failure",
+    "description": "Indicates if ANI denylist lookup failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "ani_lookup_failure",
+    "description": "Indicates if ANI lookup failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "appointment_at_local_store",
+    "description": "Whether the appointment is at a local store.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": null
+    }
+  }, {
+    "name": "appointment_end_date",
+    "description": "End date of the appointment.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "appointment_start_date",
+    "description": "Start date of the appointment.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "appointment_store_name",
+    "description": "The name of the store retrieved when checking for appointment slots.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "appointment_type",
+    "description": "Type of the appointment.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "appointment_zip_code",
+    "description": "Zip code for the appointment location.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "brand",
+    "description": "The brand of the product.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "cached_ani_orders",
+    "description": "Cached orders retrieved during ani_lookup.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "call_context",
+    "description": "Context information for the current call.",
+    "schema": {
+      "type": "OBJECT",
+      "default": {
+      }
+    }
+  }, {
+    "name": "call_id",
+    "description": "The unique identifier for the current call",
+    "schema": {
+      "type": "STRING",
+      "default": "order_delivery"
+    }
+  }, {
+    "name": "called_set_call_context",
+    "description": "Indicates if set_call_context was called.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "check_appointment_slots_failure",
+    "description": "Indicates if checking appointment slots failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "computer_troubleshooting_issue_classification",
+    "description": "Classification of the user\u0027s computer troubleshooting problem as either hardware or software",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "create_appointment_failure",
+    "description": "Indicates if creating an appointment failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "customer_phone_number",
+    "description": "Customer\u0027s phone number.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "determine_service_context_instruction",
+    "description": "This variable stores the instructions to determine the service context",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "dfcx_params",
+    "description": "The parameters to pass to the DFCX agent.",
+    "schema": {
+      "type": "OBJECT",
+      "properties": {
+        "source": {
+          "type": "STRING"
+        }
+      },
+      "default": {
+        "source": "IVR"
+      }
+    }
+  }, {
+    "name": "email",
+    "description": "Customer\u0027s email.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "emergency_message_national",
+    "description": "Emergency message for national level.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "emergency_message_retail",
+    "description": "Emergency message for retail level.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "enable_fallback_and_reclassification",
+    "description": "Flag to enable fallback and reclassification.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "entry_point_phone_number",
+    "description": "Phone number used as entry point.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "fetch_init_json_failure",
+    "description": "Indicates if fetching init JSON failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "first_name",
+    "description": "Customer\u0027s first name.",
+    "schema": {
+      "type": "STRING",
+      "default": "unknown"
+    }
+  }, {
+    "name": "four_part_key",
+    "description": "stores the four part key of a product",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "generate_lmi_pin_failure",
+    "description": "Indicates if generating LMI PIN failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "get_call_context_failure",
+    "description": "Indicates if getting call context failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "get_home_appointment_arrival_time_failure",
+    "description": "Indicates if getting home appointment arrival time failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "get_purchase_history_failure",
+    "description": "Indicates if getting purchase history failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "greeting_stage",
+    "description": "Greeting messages parts are constructed and played in multiple callback invocations, this variable tracks which stage the greeting message is at, when the Agent finishes the greeting, greeting stage will be set to \"DONE\".",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "init_json",
+    "description": "Initial JSON data.",
+    "schema": {
+      "type": "OBJECT",
+      "default": {
+        "order_cancel_nga": "0",
+        "order_check_status_nga": "1",
+        "order_late_lost_nga": "0",
+        "order_lookup_and_identification_nga": "1",
+        "order_modify_nga": "0",
+        "order_pickup_policy_nga": "0",
+        "order_price_match_nga": "0",
+        "order_return_exchange_nga": "0"
+      }
+    }
+  }, {
+    "name": "initiated_lmi",
+    "description": "Indicates if LMI was initiated.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "is_proactive_sms_offer",
+    "description": "Indicates if it is a proactive SMS offer.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "item_id",
+    "description": "The item_id of the product which the user is having issue with.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "last_name",
+    "description": "Customer\u0027s last name.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "llm_steps",
+    "description": "Track the number of LLM steps performed in the current turn.",
+    "schema": {
+      "type": "NUMBER",
+      "default": null
+    }
+  }, {
+    "name": "lmi_offered",
+    "description": "Whether the LMI remote support option was presented to the customer.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "lmi_session_created",
+    "description": "Indicates if LMI session was created.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": null
+    }
+  }, {
+    "name": "lmi_session_id",
+    "description": "LMI session ID.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "lmi_session_resolved",
+    "description": "Indicates if LMI session was resolved.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "membership",
+    "description": "Customer\u0027s membership level (e.g. Total, Plus)",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "mock_ani_denylist_response",
+    "description": "Mock response for ANI denylist lookup.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_ani_lookup_response",
+    "description": "Mock response for ANI lookup.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_create_and_get_service_context_response",
+    "description": "Mock response for creating and getting service context.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_create_appointment_response",
+    "description": "Mock response for creating an appointment.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_fetch_init_json_response",
+    "description": "Mock response for fetching init JSON.",
+    "schema": {
+      "type": "OBJECT",
+      "properties": {
+        "sessionInfo": {
+          "type": "OBJECT",
+          "properties": {
+            "parameters": {
+              "type": "OBJECT",
+              "properties": {
+                "order_check_status_nga": {
+                  "type": "STRING"
+                },
+                "order_lookup_and_identification_nga": {
+                  "type": "STRING"
+                }
+              }
+            }
+          }
+        }
+      },
+      "default": {
+        "sessionInfo": {
+          "parameters": {
+            "order_check_status_nga": "1",
+            "order_lookup_and_identification_nga": "1"
+          }
+        }
+      }
+    }
+  }, {
+    "name": "mock_get_appointment_slots_response",
+    "description": "Mock response for getting appointment slots.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_get_call_context_response",
+    "description": "Mock response for getting call context.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_get_home_appointment_arrival_time_response",
+    "description": "Mock response for getting home appointment arrival time.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_get_lmi_pin_response",
+    "description": "Mock response for getting LMI PIN.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_get_lmi_status_response",
+    "description": "Mock response for getting LMI status.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_get_orders_by_phone_response",
+    "description": "Mock response for getting orders by phone.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_get_service_context_by_partyid_response",
+    "description": "Mock response for getting service context by party ID.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_purchase_history_response",
+    "description": "Mock response for purchase history.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_send_sms_response",
+    "description": "Mock response for sending SMS.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_set_call_context_response",
+    "description": "Mock response for setting call context.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "mock_store_lookup_response",
+    "description": "Mock response for store lookup.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "next_agent_actions",
+    "description": "Override the next agent actions.",
+    "schema": {
+      "type": "OBJECT",
+      "default": null
+    }
+  }, {
+    "name": "no_input_counter",
+    "description": "Counter for consecutive no-input events.",
+    "schema": {
+      "type": "NUMBER",
+      "default": 0.0
+    }
+  }, {
+    "name": "offer_text_instruction",
+    "description": "stores the instruction for offer text agent",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "open_orders_count",
+    "description": "Count of open orders in the last 15 days",
+    "schema": {
+      "type": "NUMBER",
+      "default": null
+    }
+  }, {
+    "name": "operating_system",
+    "description": "The operating system of the device, if applicable.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "order_id",
+    "description": "The ID of the order the user is calling about.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "order_management_subtasks_instruction",
+    "description": "Dynamic instruction containing the relevant subtasks for Order Management based on user intent.",
+    "schema": {
+      "type": "STRING",
+      "default": ""
+    }
+  }, {
+    "name": "order_number",
+    "description": "stores the order number of the product",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "order_phone_number",
+    "description": "Alternative phone number provided by the user for order lookup.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "orders_by_id",
+    "description": "Dictionary of retrieved orders indexed by order ID.",
+    "schema": {
+      "type": "OBJECT",
+      "default": {
+      }
+    }
+  }, {
+    "name": "orders_lookup_done",
+    "description": "Indicates if order lookup has been completed for this session.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "party_ids",
+    "description": "List of party IDs associated with the customer.",
+    "schema": {
+      "type": "ARRAY",
+      "items": {
+        "type": "STRING"
+      },
+      "default": null
+    }
+  }, {
+    "name": "played_message_data_rates_legal_disclosure",
+    "description": "Indicates if message and data rates legal disclosure was played.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "played_sms_scheduling_offer",
+    "description": "Indicates if SMS scheduling offer was played.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "proactive_code",
+    "description": "Proactive code for the session.",
+    "schema": {
+      "type": "STRING",
+      "default": "DEFAULT"
+    }
+  }, {
+    "name": "product_by_item_id",
+    "description": "The purchased product by itemId.\n\n{\n    \"\u003citemId\u003e\": {\n        \"productName\": \"\u003cproductName\u003e\",\n        \"productType\": \"\u003cproductType\u003e\",\n        ...\n    } \n}",
+    "schema": {
+      "type": "OBJECT",
+      "default": {
+      }
+    }
+  }, {
+    "name": "product_type",
+    "description": "The type of product the user is calling about (e.g., laptop, computer, printer, tablet).",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "protection_plan_status",
+    "description": "Whether the product is covered by a protection plan.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "schedule_appointment_instruction",
+    "description": "Dynamic schedule appointment instruction. The instruction is determined by party_id and store_id. Will be set upon transferring to the Computer Troubleshooting agent.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "send_appointment_link_sms_failure",
+    "description": "Indicates if sending appointment link SMS failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "send_sms_tool",
+    "description": "The SMS tool to use for sending notifications.",
+    "schema": {
+      "type": "STRING",
+      "default": "send_appointment_link_sms"
+    }
+  }, {
+    "name": "sequence_number",
+    "description": "stores the sequence number ",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "set_call_context_failure",
+    "description": "Indicates if setting call context failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "should_connect_to_computer_troubleshooting_agent",
+    "description": "whether to connect to the computer troubleshooting agent",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "should_connect_to_computer_troubleshooting_assurant_agent",
+    "description": "whether to connect to the computer troubleshooting assurant agent",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "should_connect_to_dfcx_agent",
+    "description": "Signals whether to connect to the dfcx agent from a callback",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "should_connect_to_twilio_queue_directly",
+    "description": "Signals whether to connect to Twilio queue (i.e. end the session) directly from a callback",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "should_connect_to_twilio_queue_with_response",
+    "description": "Signals whether to end the session (e.g. for connecting to Twilio queue) from a callback after the agent generates a response.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "should_end_session",
+    "description": "Signals whether to end the session from a callback.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "should_play_message_data_rates_legal_disclosure",
+    "description": "Flag to indicate if message and data rates legal disclosure should be played.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "should_play_sms_scheduling_offer",
+    "description": "Flag to indicate if SMS scheduling offer should be played.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "should_transfer_to_graceful_signoff",
+    "description": "Flag to indicate if session should transfer to graceful signoff.",
+    "schema": {
+      "type": "BOOLEAN",
+      "default": false
+    }
+  }, {
+    "name": "single_order_status",
+    "description": "Short description of the order status, if there is only a single open order.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "sku_id",
+    "description": "stores the sku id of a product",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "sms_link_event_id",
+    "description": "The event ID for the SMS link template.",
+    "schema": {
+      "type": "STRING",
+      "default": "IVR_IS_Schedule"
+    }
+  }, {
+    "name": "steering_proactive_examples",
+    "description": "Dynamic examples for proactive routing in steering agent.",
+    "schema": {
+      "type": "STRING",
+      "default": ""
+    }
+  }, {
+    "name": "store_id",
+    "description": "The store identifier. Set if the customer is calling a store number.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "store_lookup_failure",
+    "description": "Indicates if store lookup failed.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "store_name",
+    "description": "The store name. Set if the customer is calling a store number.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }, {
+    "name": "store_pickup_count",
+    "description": "Number of items ready to pick up in store.",
+    "schema": {
+      "type": "NUMBER",
+      "default": null
+    }
+  }, {
+    "name": "user_problem",
+    "description": "Description of the user\u0027s problem.",
+    "schema": {
+      "type": "STRING",
+      "default": null
+    }
+  }],
+  "dataStoreSettings": {
+  },
+  "globalInstruction": "global_instruction.txt",
+  "languageSettings": {
+    "defaultLanguageCode": "en-US",
+    "fallbackAction": "exit"
+  },
+  "defaultChannelProfile": {
+    "disableDtmf": false,
+    "disableBargeInControl": false,
+    "noiseSuppressionLevel": ""
+  },
+  "evaluationMetricsThresholds": {
+    "scenarioHallucinationMetricBehavior": "DISABLED"
+  },
+  "timeZoneSettings": {
+    "timeZone": "America/Los_Angeles"
+  },
+  "pinned": true,
+  "toolExecutionMode": "PARALLEL",
+  "errorHandlingSettings": {
+  }
+}

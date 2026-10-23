@@ -1,0 +1,180 @@
+openapi: 3.0.0
+info:
+  title: Call Context API
+  version: v1
+  description: API to retrieve and store call context data associated with a
+    given key.
+servers:
+- url: $env_var
+  description: Web-hook base URL for the API
+
+paths:
+  /api/v1/gw-get/chat-twilio-adapter/adapters/twilio/api/v1/voice/call/context/{contextKey}:
+    post:
+      summary: Get Call Context
+      operationId: getCallContext
+      description: Retrieves the call context data associated with a given
+        context key.
+      parameters:
+      - $ref: '#/components/parameters/contextKeyPath'
+      - $ref: '#/components/parameters/respPayloadTag'
+      - $ref: '#/components/parameters/sessionId'
+      - $ref: '#/components/parameters/stsScope'
+      responses:
+        '200':
+          description: OK. Successfully retrieved the context data.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          callContext:
+                            $ref: '#/components/schemas/CallContext'
+        '404':
+          description: Context not found for the given key.
+        '500':
+          description: Server error.
+
+  /api/v1/gw-post/chat-twilio-adapter/adapters/twilio/api/v1/voice/call/context/{contextKey}:
+    post:
+      summary: Post Call Context
+      operationId: postCallContextWithKey
+      description: Stores freeform call context information into the database
+        with the supplied context key.
+      parameters:
+      - $ref: '#/components/parameters/contextKeyPath'
+      - $ref: '#/components/parameters/contextKeyHeader'
+      - $ref: '#/components/parameters/reqPayloadTag'
+      - $ref: '#/components/parameters/respPayloadTag'
+      - $ref: '#/components/parameters/sessionId'
+      - $ref: '#/components/parameters/stsScope'
+      requestBody:
+        description: The context data to store in the database.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionInfo:
+                  type: object
+                  properties:
+                    parameters:
+                      type: object
+                      properties:
+                        callContext:
+                          $ref: '#/components/schemas/CallContext'
+      responses:
+        '200':
+          description: OK. The context key that was used is returned.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionInfo:
+                    type: object
+                    properties:
+                      parameters:
+                        type: object
+                        properties:
+                          callContext:
+                            $ref: '#/components/schemas/PostCallContextResponse'
+        '400':
+          description: Bad Request.
+        '500':
+          description: Server error.
+        '503':
+          description: Service Unavailable.
+
+components:
+  parameters:
+    contextKeyPath:
+      in: path
+      name: contextKey
+      required: true
+      schema:
+        type: string
+        default: "callSid_1"
+      description: "session id to fetch the call context stored by twilio"
+    contextKeyHeader:
+      name: X-Req-Param-contextKey
+      in: header
+      required: true
+      description: "session id to fetch the call context stored by twilio"
+      schema:
+        type: string
+        default: "callSid_1"
+
+    reqPayloadTag:
+      name: X-Req-Payload-Tag
+      in: header
+      required: true
+      description: "A tag for the request payload that needs to be extracted from
+        session parameters and send it to downstream api."
+      schema:
+        type: string
+        enum: ["callContext"]
+        default: "callContext"
+
+    respPayloadTag:
+      name: X-Resp-Payload-Tag
+      in: header
+      required: true
+      description: "A tag for the response payload that will be wrapped up in session
+        parameters."
+      schema:
+        type: string
+        enum: ["callContext"]
+        default: "callContext"
+
+    sessionId:
+      name: x-session-id
+      in: header
+      required: true
+      description: "Session id of the conversation"
+      schema:
+        type: string
+        default: "callSid_1"
+
+    stsScope:
+      name: x-sts-scope
+      in: header
+      required: true
+      description: "APID scope"
+      schema:
+        type: string
+        enum: ["apid-int-cloud:DELETE,GET,PATCH,POST,PUT:/gw/chat-twilio-adapter/adapters/twilio/api/**"]
+        default: "apid-int-cloud:DELETE,GET,PATCH,POST,PUT:/gw/chat-twilio-adapter/adapters/twilio/api/**"
+
+  schemas:
+    CallContext:
+      type: object
+      properties:
+        data:
+          type: object
+          description: The call context data. It is free form.
+          properties:
+            source: {type: string}
+            entryPointPhoneNumber: {type: string}
+            phoneNumber: {type: string}
+            firstName: {type: string}
+            lastName: {type: string}
+            memberID: {type: string}
+            orderNumber: {type: string}
+            zipCode: {type: string}
+          additionalProperties: true
+
+    PostCallContextResponse:
+      type: object
+      properties:
+        contextKey:
+          type: string
+          description: The randomly-generated 24-digit key or the supplied
+            contextKey to be used in subsequent lookups to GET Call Context.

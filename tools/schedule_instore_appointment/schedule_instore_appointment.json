@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "schedule_instore_appointment",
+    "pythonCode": "tools/schedule_instore_appointment/python_function/python_code.py",
+    "description": "Schedules an in-store appointment for a customer.\n\nThe Agent MUST strictly execute the instructions returned by this tool without\ndeviation.\n\nArgs:\n  store_id (int): The store ID where the appointment will be created (from\n    check_appointment_slots).\n  is_apple_device (bool): Set to True if the product is an Apple-branded\n    device (e.g., MacBook, iPad).\n  appointment_date_time (str): The EXACT timestamp string returned by the\n    `check_appointment_slots` tool corresponding to the appointment slot that\n    the user selected. It is CRITICAL that you DO NOT alter the timestamp in any way.\n  notes (str, optional): Additional appointment notes.\n\nReturns:\n    str: A mandatory instruction set that the agent MUST follow to continue\n      the conversation flow."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "schedule_instore_appointment"
+}

@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "connect_to_manufacturer_queue",
+    "pythonCode": "tools/connect_to_manufacturer_queue/python_function/python_code.py",
+    "description": "Connects the user to a manufacture customer care.\n\nargs:\n    conversation_summary (str): A detailed summary of the conversation to\n    date.\n      - FORMAT: Professional, third-person narrative.\n      - CONTENT: Include the following ONLY if they have been explicitly \n        disclosed in the conversation:\n        1. The specific issue and device details.\n        2. Troubleshooting steps attempted during this session and their outcomes.\n        3. The immediate trigger for the escalation (e.g., user request, \n           unresolved error, or technical limitation).\n        4. Any additional details that the live agent should be aware of.\n      - DATA INTEGRITY: Do not infer or hallucinate details (like device \n        models or specific errors) if the user has not provided them. If a \n        category is unknown, omit it.\n      - CRITICAL: This is the human agent\u0027s first point of context. Accuracy \n        is paramount to avoid making the user repeat themselves.\n      - EXAMPLE (Full Context): \"User\u0027s MacBook Pro is experiencing persistent \n        latency. Guided user through a hard reboot, but performance did not \n        improve. Escalated because user was unable to install the LMI program\n        due to a permission error.\"\n      - EXAMPLE (Limited Context): \"User reported that their tablet is not\n        turning on but did not specify the device. Escalated per user request\n        for live assistance.\"\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "connect_to_manufacturer_queue"
+}

@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "check_support_entitlement",
+    "pythonCode": "tools/check_support_entitlement/python_function/python_code.py",
+    "description": "Determines the next conversational step based on user eligibility.\n\nThe Agent MUST strictly execute the instructions returned by this tool without\ndeviation.\n\n### PRE-REQUISITES:\nBefore calling this tool, the agent MUST have identified:\n- The `product_type` and called `set_product_info` to store it.\n- The issue `classification` (\u0027software\u0027 or \u0027hardware\u0027), and called either\n  `classify_user_issue_as_software` or `classify_user_issue_as_hardware` to\n  store it.\n\nArgs:\n    is_windows_or_mac_os (bool): Set to True if the device\u0027s operating\n      system is a variation of Windows or macOS. Otherwise, set to False.\n\nReturns:\n    str: A mandatory instruction set that the agent MUST follow to continue\n      the conversation flow."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "check_support_entitlement"
+}

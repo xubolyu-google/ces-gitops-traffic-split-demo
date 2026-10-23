@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_call_context",
+    "pythonCode": "tools/set_call_context/python_function/python_code.py",
+    "description": "Stores the call context data.\n\nArgs:\n    call_context (dict[str, Any]): The call context data to store.\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_call_context"
+}

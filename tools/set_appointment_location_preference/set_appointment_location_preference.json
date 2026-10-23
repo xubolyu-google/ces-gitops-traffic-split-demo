@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_appointment_location_preference",
+    "pythonCode": "tools/set_appointment_location_preference/python_function/python_code.py",
+    "description": "Sets the user\u0027s preferred location for the instore appointment.\n\nArgs:\n  at_local_store (bool): Set to True ONLY if user\u0027s preference is to\n    schedule an appointment at the store they are currently calling.\n  zip_code (str, optional): The 5-digit zip code to find appointments\n    at nearby stores. REQUIRED if at_local_store is False."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_appointment_location_preference"
+}

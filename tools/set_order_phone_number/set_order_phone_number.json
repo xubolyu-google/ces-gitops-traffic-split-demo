@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_order_phone_number",
+    "pythonCode": "tools/set_order_phone_number/python_function/python_code.py",
+    "description": "Sets the order phone number for looking up orders.\n\nArgs:\n    phone_number (str): The 10-digit US phone number provided by the user. Must be in the format XXXXXXXXXX, 1XXXXXXXXXX, or +1XXXXXXXXXX.\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_order_phone_number"
+}

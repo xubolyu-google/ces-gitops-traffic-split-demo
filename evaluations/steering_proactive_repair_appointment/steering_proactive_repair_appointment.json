@@ -1,0 +1,370 @@
+{
+  "displayName": "steering_proactive_repair_appointment",
+  "tags": ["steering_proactive", "steering"],
+  "golden": {
+    "turns": [{
+      "steps": [{
+        "userInput": {
+          "variables": {
+            "mock_ani_denylist_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "isANIDenyListed": "false"
+                }
+              }
+            },
+            "mock_ani_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "appointmentDate": "None",
+                  "email": "ALICE.SMITH@EXAMPLE.COM",
+                  "firstName": "ALICE",
+                  "isProactive": {
+                    "isExpiredCard": false,
+                    "isFailedAuthMembership": true,
+                    "isInstoreAppt": false,
+                    "isOpenRepairs": false,
+                    "isOrderInstallDelivery": false,
+                    "isOrderOpen15D": false,
+                    "isOrderReadyForPickUp": false,
+                    "isOrdersOpen": false,
+                    "isRepairAppointment": true,
+                    "isTTSContract": false
+                  },
+                  "lastName": "SMITH",
+                  "membership": "Total",
+                  "orders": {
+                  },
+                  "partyID": ["5001112222"],
+                  "with_ani_lookup": true,
+                  "zipCode": "10001"
+                }
+              }
+            },
+            "mock_get_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "data": {
+                      "entryPointNumber": "4087388680",
+                      "phoneNumber": "1112223333",
+                      "source": "IVR",
+                      "sourceType": "SIP"
+                    }
+                  }
+                }
+              }
+            },
+            "mock_purchase_history_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "response": {
+                    "purchases": {
+                      "Acer": [{
+                        "isCoveredByProtectionPlan": true,
+                        "productName": "Acer - R 11 2-in-1 Chromebook",
+                        "whatItIs": ["Laptop", "Chromebook"]
+                      }],
+                      "Apple": [{
+                        "isCoveredByProtectionPlan": false,
+                        "productName": "MacBook Air 13.3",
+                        "whatItIs": ["Laptop", "MacBook"]
+                      }, {
+                        "isCoveredByProtectionPlan": false,
+                        "productName": "MacBook Pro 14",
+                        "whatItIs": ["Laptop", "MacBook"]
+                      }],
+                      "Samsung": [{
+                        "isCoveredByProtectionPlan": true,
+                        "productName": "Samsung Galaxy S24",
+                        "whatItIs": ["Phone", "Cell Phone"]
+                      }]
+                    }
+                  }
+                }
+              }
+            },
+            "mock_set_call_context_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "callContext": {
+                    "contextKey": "session_id"
+                  }
+                }
+              }
+            },
+            "mock_store_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "display_name": "N/A",
+                  "hotline": "888",
+                  "store_id": "N/A",
+                  "store_id4": "N/A"
+                }
+              }
+            }
+          }
+        }
+      }, {
+        "userInput": {
+          "event": {
+            "event": "welcome"
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "DISABLED_BARGE_IN"
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "DISCLAIMER"
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-4be8747f-ee2f-4eb5-a14e-5cae0c9fb6b1",
+            "tool": "get_call_context",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-4be8747f-ee2f-4eb5-a14e-5cae0c9fb6b1",
+            "tool": "get_call_context",
+            "response": {
+              "result": {
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-a008ce6f-2c59-4228-9ecc-59e29e2dbaf3",
+            "tool": "fetch_init_json",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-a008ce6f-2c59-4228-9ecc-59e29e2dbaf3",
+            "tool": "fetch_init_json",
+            "response": {
+              "result": ""
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "call_context": {
+              "entryPointNumber": "4087388680",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP"
+            },
+            "customer_phone_number": "1112223333",
+            "dfcx_params": {
+              "entryPointNumber": "4087388680",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP"
+            },
+            "entry_point_phone_number": "4087388680",
+            "fetch_init_json_failure": "response: {\u0027status\u0027: \u0027error\u0027, \u0027errorCode\u0027: \u0027NOT_FOUND\u0027}"
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-ec3f07c1-2fe8-40ca-8c5d-9fbeefd90cad",
+            "tool": "store_lookup",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-ec3f07c1-2fe8-40ca-8c5d-9fbeefd90cad",
+            "tool": "store_lookup",
+            "response": {
+              "result": {
+                "display_name": null,
+                "store_id": null
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "call_context": {
+              "entryPointNumber": "4087388680",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP",
+              "storeID": "N/A"
+            },
+            "dfcx_params": {
+              "display_name": "N/A",
+              "entryPointNumber": "4087388680",
+              "hotline": "888",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP",
+              "storeID": "N/A",
+              "store_id": "N/A",
+              "store_id4": "N/A"
+            },
+            "mock_store_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "display_name": null,
+                  "hotline": "888",
+                  "store_id": null,
+                  "store_id4": "N/A"
+                }
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "PROACTIVE",
+            "mock_store_lookup_response": {
+              "sessionInfo": {
+                "parameters": {
+                  "hotline": "888",
+                  "store_id4": "N/A"
+                }
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "Welcome to Best Buy. You\u0027re interacting with a virtual assistant that\u0027ll use AI to help you. I\u0027m still learning, so I may not get everything right. For quality assurance, your call may be recorded. By continuing, you accept the terms of use and privacy policy on BestBuy.com."
+            }]
+          }
+        }
+      }, {
+        "expectation": {
+          "toolCall": {
+            "id": "adk-869ca6fd-e8fa-48d9-96b5-c3cb2832cc46",
+            "tool": "ani_lookup",
+            "args": {
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "toolResponse": {
+            "id": "adk-869ca6fd-e8fa-48d9-96b5-c3cb2832cc46",
+            "tool": "ani_lookup",
+            "response": {
+              "result": {
+                "email": "ALICE.SMITH@EXAMPLE.COM",
+                "firstName": "ALICE",
+                "lastName": "SMITH",
+                "zipCode": "10001"
+              }
+            }
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "appointment_type": "InstallDelivery",
+            "call_context": {
+              "appointmentDate": "None",
+              "entryPointNumber": "4087388680",
+              "partyID": "5001112222",
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP",
+              "storeID": "N/A",
+              "zipCode": "10001"
+            },
+            "dfcx_params": {
+              "appointmentDate": "None",
+              "display_name": "N/A",
+              "email": "ALICE.SMITH@EXAMPLE.COM",
+              "entryPointNumber": "4087388680",
+              "firstName": "ALICE",
+              "hotline": "888",
+              "isProactive": {
+                "isExpiredCard": false,
+                "isFailedAuthMembership": true,
+                "isInstoreAppt": false,
+                "isOpenRepairs": false,
+                "isOrderInstallDelivery": true,
+                "isOrderOpen15D": false,
+                "isOrderReadyForPickUp": false,
+                "isOrdersOpen": false,
+                "isRepairAppointment": false,
+                "isTTSContract": false
+              },
+              "lastName": "SMITH",
+              "membership": "Total",
+              "orders": {
+              },
+              "partyID": ["5001112222"],
+              "phoneNumber": "1112223333",
+              "source": "IVR",
+              "sourceType": "SIP",
+              "storeID": "N/A",
+              "store_id": "N/A",
+              "store_id4": "N/A",
+              "with_ani_lookup": true,
+              "zipCode": "10001"
+            },
+            "email": "ALICE.SMITH@EXAMPLE.COM",
+            "first_name": "ALICE",
+            "last_name": "SMITH",
+            "membership": "Total",
+            "party_ids": ["5001112222"],
+            "proactive_code": "APT"
+          }
+        }
+      }, {
+        "expectation": {
+          "updatedVariables": {
+            "greeting_stage": "DONE"
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "And thanks for being a My Best Buy Total member. Para español, diga \u0027español\u0027."
+            }]
+          }
+        }
+      }, {
+        "expectation": {
+          "agentResponse": {
+            "role": "agent",
+            "chunks": [{
+              "text": "I see you have an upcoming in-home service appointment. Is that why you\u0027re calling?"
+            }]
+          }
+        }
+      }]
+    }],
+    "evaluationExpectations": ["total_member"]
+  }
+}

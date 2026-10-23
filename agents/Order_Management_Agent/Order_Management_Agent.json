@@ -1,0 +1,31 @@
+{
+  "displayName": "Order Management Agent",
+  "modelSettings": {
+  },
+  "instruction": "agents/Order_Management_Agent/instruction.txt",
+  "tools": ["check_order_actionability", "connect_to_dfcx_agent", "connect_to_extension_queue", "connect_to_live_agent_request_menu", "connect_to_order_management_live_agent", "connect_to_spanish_agent", "determine_price_match_action", "determine_return_action", "end_session", "get_order_details", "get_orders_by_phone", "graceful_end_session_order_management", "play_sms_legal_disclosure", "send_sms", "set_alternative_sms_number", "set_order_id", "set_order_intent", "set_order_phone_number"],
+  "beforeAgentCallbacks": [{
+    "pythonCode": "agents/Order_Management_Agent/before_agent_callbacks/before_agent_callbacks_01/python_code.py",
+    "description": "Sets the flag \"enable_fallback_and_reclassification\" to disable reclassification only for lightweight steering agent."
+  }],
+  "afterAgentCallbacks": [{
+    "pythonCode": "agents/Order_Management_Agent/after_agent_callbacks/after_agent_callbacks_01/python_code.py",
+    "description": "[10-step Limit Handling] Reset LLM steps to 0 at the end of the turn."
+  }],
+  "beforeModelCallbacks": [{
+    "pythonCode": "agents/Order_Management_Agent/before_model_callbacks/before_model_callbacks_01/python_code.py",
+    "description": "[10-step Limit Handling] Count the LLM steps and prevent the conversation from failing due to reaching 10-step limit by returning a fallback response at 10th step."
+  }, {
+    "pythonCode": "agents/Order_Management_Agent/before_model_callbacks/before_model_callbacks_02/python_code.py",
+    "description": "If next_agent_actions is set, play the specified agent response or perform the specified actions (agent transfer, end session, tool calls)."
+  }, {
+    "pythonCode": "agents/Order_Management_Agent/before_model_callbacks/before_model_callbacks_03/python_code.py",
+    "description": "Handle no input."
+  }, {
+    "pythonCode": "agents/Order_Management_Agent/before_model_callbacks/before_model_callbacks_04/python_code.py",
+    "description": "Hide follow-up tools (get_order_details, check_order_actionability) until order_id is set."
+  }, {
+    "pythonCode": "agents/Order_Management_Agent/before_model_callbacks/before_model_callbacks_05/python_code.py",
+    "description": "Hide tools that are not mentioned in the current instruction."
+  }]
+}

@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "play_sms_legal_disclosure",
+    "pythonCode": "tools/play_sms_legal_disclosure/python_function/python_code.py",
+    "description": "Play the legal disclosure before sending the SMS."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "play_sms_legal_disclosure"
+}

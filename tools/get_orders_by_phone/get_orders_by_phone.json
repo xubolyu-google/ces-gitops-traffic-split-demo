@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "get_orders_by_phone",
+    "pythonCode": "tools/get_orders_by_phone/python_function/python_code.py",
+    "description": "Retrieves order information for all orders associated with the customer\u0027s phone number.\n\nReturns:\n    dict[str, Any]: A dictionary containing high-level order summaries."
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "get_orders_by_phone"
+}

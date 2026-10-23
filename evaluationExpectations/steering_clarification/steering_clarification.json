@@ -1,0 +1,7 @@
+{
+  "displayName": "steering_clarification",
+  "llmCriteria": {
+    "prompt": "The agent must ask a clarifying question after the user states their reason for calling."
+  },
+  "tags": ["steering"]
+}

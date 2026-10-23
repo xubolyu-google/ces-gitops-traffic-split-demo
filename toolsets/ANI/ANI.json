@@ -1,0 +1,12 @@
+{
+  "displayName": "ANI",
+  "openApiToolset": {
+    "openApiSchema": "toolsets/ANI/open_api_toolset/open_api_schema.yaml",
+    "apiAuthentication": {
+      "serviceAgentIdTokenAuthConfig": {
+      }
+    }
+  },
+  "executionType": "SYNCHRONOUS",
+  "description": "Perform an ANI (Automatic Number Identification) lookup using a phone number. It returns ANI details for the provided phone number."
+}

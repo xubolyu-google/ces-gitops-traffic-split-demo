@@ -1,0 +1,9 @@
+{
+  "pythonFunction": {
+    "name": "set_user_problem",
+    "pythonCode": "tools/set_user_problem/python_function/python_code.py",
+    "description": "Records a summary of the user\u0027s problem incorporating context and clarifications gathered across the entire conversation.\n\nArgs:\n  user_problem (str): a comprehensive summary of the user\u0027s problem.\n\nReturns:\n    None"
+  },
+  "executionType": "SYNCHRONOUS",
+  "displayName": "set_user_problem"
+}
